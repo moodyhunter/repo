@@ -5,6 +5,10 @@ maintainers:
 
 build_prefix: moody-x86_64
 
+repo_depends:
+  - i686-elf-binutils
+  - i686-elf-gcc
+
 update_on:
   - source: archpkg
     archpkg: gdb
