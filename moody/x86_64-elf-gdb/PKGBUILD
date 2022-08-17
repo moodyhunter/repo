@@ -1,0 +1,44 @@
+# Maintainer: c0repwn3r <core@coredoes.dev>
+
+_target=x86_64-elf
+
+pkgname=$_target-gdb
+pkgver=12.1
+pkgrel=1
+pkgdesc="GNU debugger crosscompiled for $_target development"
+arch=(x86_64)
+url="https://www.gnu.org/software/gdb"
+license=('GPL')
+groups=($_target-toolchain)
+makedepends=(gmp mpfr)
+# GDB is included to prevent conflicts with it - otherwise this package won't function
+depends=(xz libmpc $_target-gcc gdb)
+source=("http://ftpmirror.gnu.org/gdb/gdb-$pkgver.tar.xz")
+sha256sums=('0e1793bf8f2b54d53f46dea84ccfd446f48f81b297b28c4f7fc017b818d69fed')
+OPTIONS=(!strip)
+
+build() {
+    mkdir -p "$_target-gdb-$pkgver-build"
+    cd "$_target-gdb-$pkgver-build"
+
+    # Configure, we are building in seperate directory to cleanly seperate the binaries from the source
+    ../gdb-$pkgver/configure \
+        --target=$_target \
+        --prefix=/usr \
+        --program-prefix=$_target-
+
+    make
+}
+
+package() {
+    cd "$_target-gdb-$pkgver-build"
+    make install DESTDIR=$pkgdir
+    # Remove conflicting files
+    rm -rf $pkgdir/usr/share/locale/
+    rm -rf $pkgdir/usr/share/gdb
+    rm -rf $pkgdir/usr/include/gdb
+    rm -rf $pkgdir/usr/share/info/dir
+    rm -rf $pkgdir/usr/share/info/
+    rm -rf $pkgdir/usr/include/sim/callback.h
+    rm -rf $pkgdir/usr/include/sim/sim.h
+}
