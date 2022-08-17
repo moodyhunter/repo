@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../lilac-yaml-schema.yaml
+
+maintainers:
+  - github: moodyhunter
+
+build_prefix: moody-x86_64
+
+post_build: git_pkgbuild_commit
+
+update_on:
+  - source: manual
+    manual: 12.1
+  - alias: gdb
