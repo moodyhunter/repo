@@ -10,7 +10,6 @@ properties:
     default: "extra-$(uname -m)"
     enum:
       - extra-x86_64
-      - moody-x86_64
       - multilib
       - extra-aarch64
   pre_build:

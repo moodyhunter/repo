@@ -3,7 +3,7 @@
 maintainers:
   - github: moodyhunter
 
-build_prefix: moody-x86_64
+build_prefix: extra-x86_64
 
 repo_depends:
   - i686-elf-binutils
