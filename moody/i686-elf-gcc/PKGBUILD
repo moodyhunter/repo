@@ -11,6 +11,7 @@ arch=(x86_64)
 url="https://www.gnu.org/software/gcc"
 license=('GPL')
 provides=($pkgname)
+groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
 depends=(xz libmpc i686-elf-binutils)
 source=(
