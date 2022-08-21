@@ -1,0 +1,75 @@
+# Maintainer: Seth Buccella <sethfb at gmail dot com>
+# Contributor: Alex Sarum <rum.274.4 at gmail dot com>
+
+pkgname=imhex-git
+pkgver=1.21.2.r14.gc0a5e201
+pkgrel=1
+pkgdesc="A Hex Editor for Reverse Engineers, Programmers and people that value their eye sight when working at 3 AM"
+arch=('x86_64')
+url="https://github.com/WerWolv/ImHex"
+license=('GPL2')
+depends=('glfw' 'mbedtls' 'libssh2' 'curl' 'dbus' 'freetype2' 'file' 'hicolor-icon-theme' 'xdg-desktop-portal' 'fmt' 'yara')
+makedepends=('git' 'cmake' 'llvm' 'nlohmann-json' 'librsvg' 'python' 'ninja')
+optdepends=('imhex-patterns-git: ImHex base patterns')
+provides=('imhex')
+conflicts=('imhex')
+source=("$pkgname::git+https://github.com/WerWolv/ImHex.git")
+sha256sums=('SKIP')
+options=('!lto')
+
+pkgver() {
+    cd "$pkgname"
+    git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+    # export CXXFLAGS="$CXXFLAGS -Wno-inconsistent-missing-override"
+
+    cd "$pkgname"
+    git submodule update --init --recursive
+
+    mkdir -p build
+    cd build
+
+    cmake .. \
+        -Wno-dev \
+        -D CMAKE_BUILD_TYPE=Release \
+        -D CMAKE_INSTALL_PREFIX=/usr \
+        -D USE_SYSTEM_LLVM=ON \
+        -D USE_SYSTEM_YARA=ON \
+        -D USE_SYSTEM_FMT=ON \
+        -D USE_SYSTEM_CURL=ON \
+        -D USE_SYSTEM_NLOHMANN_JSON=ON \
+        -D IMHEX_VERSION="$pkgver"
+
+    make
+}
+
+package() {
+    cd "$pkgname"
+    # Executable
+    install -Dm0755 build/imhex "$pkgdir/usr/bin/imhex"
+
+    # Shared lib and plugins
+    install -Dm0755 -t "$pkgdir/usr/lib" build/lib/libimhex/libimhex.so
+
+    for plugin in builtin; do
+        install -Dm0755 -t "$pkgdir/usr/lib/imhex/plugins" "build/plugins/$plugin.hexplug"
+    done
+
+    install -dm0755 "$pkgdir/usr/share/imhex"
+
+    # Desktop file(s)
+    install -Dm0644 -t "$pkgdir/usr/share/applications" "dist/imhex.desktop"
+    install -Dm0644 "resources/icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/imhex.svg"
+    for size in 32 48 64 128 256; do
+        install -dm0755 "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps"
+        rsvg-convert -a -f png -w $size -o "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/imhex.png" "resources/icon.svg"
+    done
+
+    # License
+    install -Dm0644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+    # Documentation
+    install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname" "README.md"
+}
