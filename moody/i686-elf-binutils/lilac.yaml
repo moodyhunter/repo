@@ -8,6 +8,5 @@ build_prefix: testing-x86_64
 post_build: git_pkgbuild_commit
 
 update_on:
-  - source: alpm
-    alpm: binutils
-    repo: testing
+  - source: archpkg
+    archpkg: binutils

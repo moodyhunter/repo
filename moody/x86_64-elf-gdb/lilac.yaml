@@ -12,6 +12,5 @@ repo_depends:
   - x86_64-elf-gcc
 
 update_on:
-  - source: alpm
-    alpm: gdb
-    repo: testing
+  - source: archpkg
+    archpkg: gdb

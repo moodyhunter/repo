@@ -11,6 +11,5 @@ repo_depends:
   - i686-elf-binutils
 
 update_on:
-  - source: alpm
-    alpm: gcc
-    repo: testing
+  - source: archpkg
+    archpkg: gcc

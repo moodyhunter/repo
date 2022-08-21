@@ -12,6 +12,5 @@ repo_depends:
   - i686-elf-gcc
 
 update_on:
-  - source: alpm
-    alpm: gdb
-    repo: testing
+  - source: archpkg
+    archpkg: gdb
