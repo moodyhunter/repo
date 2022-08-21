@@ -10,6 +10,7 @@ pkgdesc="GNU gcc for the $_target toolchain"
 arch=(x86_64)
 url="https://www.gnu.org/software/gcc"
 license=('GPL')
+provides=($pkgname)
 makedepends=(gmp mpfr gcc)
 depends=(xz libmpc i686-elf-binutils)
 source=(

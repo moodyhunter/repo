@@ -12,6 +12,7 @@ url="https://www.gnu.org/software/gcc"
 license=('GPL')
 makedepends=(gmp mpfr gcc)
 depends=(xz libmpc $_target-binutils)
+provides=($pkgname)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"

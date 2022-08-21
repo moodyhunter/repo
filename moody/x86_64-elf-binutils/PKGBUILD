@@ -12,6 +12,7 @@ arch=(x86_64)
 url='http://www.gnu.org/software/binutils/'
 license=(GPL)
 depends=(zlib libelf)
+provides=($pkgname)
 options=(!emptydirs !docs)
 source=(https://mirrors.kernel.org/gnu/binutils/binutils-$pkgver.tar.xz{,.sig})
 sha256sums=('645c25f563b8adc0a81dbd6a41cffbf4d37083a382e02d5d3df4f65c09516d00'
