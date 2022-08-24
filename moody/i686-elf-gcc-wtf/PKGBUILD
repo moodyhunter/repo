@@ -1,25 +1,25 @@
 # Maintainer: c0repwn3r <core@coredoes.dev>
 # Maintainer: Finlay Maroney <finman292004@protonmail.com>
 
-_target=x86_64-elf
+_target=i686-elf
 
-pkgname=$_target-gcc
+pkgname=$_target-gcc-wtf
 pkgver=12.2.0
 pkgrel=1
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=(x86_64)
 url="https://www.gnu.org/software/gcc"
 license=('GPL')
-makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils)
-groups=($_target-toolchain)
 provides=($pkgname)
+groups=($_target-toolchain)
+makedepends=(gmp mpfr gcc)
+depends=(xz libmpc i686-elf-binutils)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
 )
 sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
-            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
+    '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
 
 build() {
     # Patch gcc
@@ -36,24 +36,28 @@ build() {
         --target=$_target \
         --prefix="/usr" \
         --libexecdir="/usr/lib" \
-        --disable-nls \
-        --disable-werror \
-        --disable-multilib \
-        --without-headers \
-        --enable-libgcc \
+        --disable-build-format-warnings \
         --enable-languages=c,c++ \
-        --disable-build-format-warnings # https://bugs.archlinux.org/task/70701
-
+        --disable-shared \
+        --disable-multilib \
+        --disable-libffi \
+        --disable-libgomp \
+        --disable-libmudflap \
+        --disable-libquadmath \
+        --disable-libssp \
+        --disable-nls \
+        --with-newlib \
+        --without-headers \
+        --disable-tls \
+        --disable-bootstrap \
+        --disable-hosted-libstdcxx
     # Build
-    make all-gcc
-    make all-target-libgcc
+    make
 }
 
 package() {
     cd "$_target-$pkgname-$pkgver-build"
-    make install-gcc DESTDIR=$pkgdir
-    make install-target-libgcc DESTDIR=$pkgdir
-
+    make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3}
     # Remove conflicting files
     rm -rf $pkgdir/usr/share/info
     rm -rf $pkgdir/usr/share/man/man7
