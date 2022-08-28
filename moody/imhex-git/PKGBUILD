@@ -2,7 +2,7 @@
 # Contributor: Alex Sarum <rum.274.4 at gmail dot com>
 
 pkgname=imhex-git
-pkgver=1.21.2.r31.g742a4e53
+pkgver=1.21.2.r36.g33a37591
 pkgrel=1
 pkgdesc="A Hex Editor for Reverse Engineers, Programmers and people that value their eye sight when working at 3 AM"
 arch=('x86_64')
