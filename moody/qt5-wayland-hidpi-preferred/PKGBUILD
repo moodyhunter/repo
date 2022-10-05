@@ -5,7 +5,7 @@ _pkgname=qt5-wayland
 pkgname=${_pkgname}-hidpi-preferred
 _basever=5.15.6
 pkgver=5.15.6+kde+r50
-pkgrel=2
+pkgrel=3
 _commit=8faf74a7966b520f0ac3eb4d88235f8ec63b31b8
 arch=('x86_64')
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ _pkgfqn=${_pkgname/5-/}
 source=(git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit
 hidpi.patch)
 sha256sums=('SKIP'
-            'df1eff04e60f94e230eabe6bb28bc85fd1b15119598bb83196cdc6e41cd03e42')
+            '8e20b2b8a10916c4d5f002001f2784bd9c12b6771385e84fda71972fa081a67c')
 options=(debug)
 
 pkgver() {

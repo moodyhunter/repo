@@ -16,8 +16,8 @@ index bc031ed5..7e4886d9 100644
 +        }
 +    }
 +
-+    Q_ASSERT(maxScaleScreen);
-+    newScreen = maxScaleScreen;
++    // update to the screen with the highest scale
++    newScreen = maxScaleScreen ? maxScaleScreen : newScreen;
 +
      if (newScreen == mLastReportedScreen)
          return;
