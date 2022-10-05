@@ -1,0 +1,24 @@
+diff --git a/src/client/qwaylandwindow.cpp b/src/client/qwaylandwindow.cpp
+index 001f99d0..c7007e9a 100644
+--- a/src/client/qwaylandwindow.cpp
++++ b/src/client/qwaylandwindow.cpp
+@@ -1218,6 +1218,19 @@ void QWaylandWindow::handleScreensChanged()
+ {
+     QPlatformScreen *newScreen = calculateScreenFromSurfaceEvents();
+ 
++    QWaylandScreen *maxScaleScreen = nullptr;
++    int _maxScale = 0;
++    for(const auto &screen : qAsConst(mSurface->m_screens)) {
++        int scale = screen->isPlaceholder() ? 1 : static_cast<QWaylandScreen *>(screen)->scale();
++        if (scale > _maxScale) {
++            _maxScale = scale;
++            maxScaleScreen = static_cast<QWaylandScreen *>(screen);
++        }
++    }
++
++    Q_ASSERT(maxScaleScreen);
++    newScreen = maxScaleScreen;
++
+     if (newScreen == mLastReportedScreen)
+         return;
+ 
