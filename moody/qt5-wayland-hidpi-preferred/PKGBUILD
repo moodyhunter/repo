@@ -24,11 +24,6 @@ sha256sums=('SKIP'
             '3a0675890fa7fdc0287a501c6520ba9104e4ddd13d7de2c5dded1bcfcb39fd0b')
 options=(debug)
 
-pkgver() {
-  cd $_pkgfqn
-  echo "$_basever+kde+r"`git rev-list --count v$_basever-lts-lgpl..$_commit`
-}
-
 prepare() {
   mkdir -p build
   cd $_pkgfqn
