@@ -12,3 +12,4 @@ update_on:
   - source: alpm
     alpm: qt5-wayland
     repos: [kde-unstable, testing, extra]
+    strip_release: true
