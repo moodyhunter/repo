@@ -5,7 +5,7 @@ _target=i686-elf
 
 pkgname=$_target-gcc-wtf
 pkgver=12.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
@@ -19,7 +19,7 @@ source=(
     "gcc12-Wno-format-security.patch"
 )
 sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
-    '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
+            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
 
 build() {
     # Patch gcc
