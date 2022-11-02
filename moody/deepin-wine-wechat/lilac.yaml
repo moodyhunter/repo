@@ -13,4 +13,5 @@ repo_depends:
 update_on:
   - source: aur
     aur: deepin-wine-wechat
+    strip_release: true
 # vim:set ts=4 sw=2 et:

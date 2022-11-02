@@ -10,4 +10,5 @@ post_build: aur_post_build
 update_on:
   - source: aur
     aur: deepin-udis86
+    strip_release: true
 # vim:set ts=4 sw=2 et:

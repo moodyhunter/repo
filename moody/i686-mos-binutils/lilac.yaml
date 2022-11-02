@@ -12,3 +12,4 @@ update_on:
   - source: alpm
     alpm: binutils
     repos: [testing, core]
+    strip_release: true

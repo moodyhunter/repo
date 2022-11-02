@@ -10,4 +10,5 @@ post_build: aur_post_build
 update_on:
   - source: aur
     aur: deepin-wine-helper
+    strip_release: true
 # vim:set ts=4 sw=2 et:
