@@ -10,4 +10,4 @@ post_build: aur_post_build
 update_on:
   - source: aur
     aur: kirigami-addons-git
-# vim:set ts=4 sw=2 et:
+    strip_release: true

@@ -13,4 +13,4 @@ repo_depends:
 update_on:
   - source: aur
     aur: kalendar-git
-# vim:set ts=4 sw=2 et:
+    strip_release: true
