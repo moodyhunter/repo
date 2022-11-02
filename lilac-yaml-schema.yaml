@@ -13,6 +13,7 @@ properties:
       - multilib
       - extra-aarch64
       - testing-x86_64
+      - testing-x86_64_v3
   pre_build:
     description: Name of function to be used as the pre_build function.
     type: string
