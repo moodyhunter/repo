@@ -7,7 +7,7 @@
 pkgname=deepin-wine-helper
 _pkgver=5.1.43-1
 pkgver=${_pkgver//-/_}
-pkgrel=2
+pkgrel=3
 pkgdesc="Deepin Wine Helper"
 arch=('i686' 'x86_64')
 url="http://www.deepin.org"
