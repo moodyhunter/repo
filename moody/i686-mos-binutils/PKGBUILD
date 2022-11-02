@@ -6,7 +6,7 @@ _pkgname=binutils
 pkgname=$_target-$_pkgname
 pkgver=2.39
 _basedir=$_pkgname-$pkgver
-pkgrel=5
+pkgrel=6
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the $_target target"
 arch=('x86_64' 'x86_64_v3')
 url='http://www.gnu.org/software/binutils/'
@@ -18,8 +18,8 @@ options=(!emptydirs !docs)
 source=(i686-mos-binutils.patch
     https://mirrors.kernel.org/gnu/binutils/binutils-$pkgver.tar.xz{,.sig})
 sha256sums=('01c18b3204601ac86d4ed47c0b8bc27455e7095235fb65212a54d7b8ccffb025'
-    '645c25f563b8adc0a81dbd6a41cffbf4d37083a382e02d5d3df4f65c09516d00'
-    'SKIP')
+            '645c25f563b8adc0a81dbd6a41cffbf4d37083a382e02d5d3df4f65c09516d00'
+            'SKIP')
 validpgpkeys=("3A24BC1E8FB409FA9F14371813FCEF89DD9E3C4F")
 
 prepare() {
