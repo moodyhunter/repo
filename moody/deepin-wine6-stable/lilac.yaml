@@ -3,7 +3,7 @@ maintainers:
 
 build_prefix: multilib-testing
 
-pre_build_script: aur_pre_build(maintainers='None')
+pre_build_script: aur_pre_build(maintainers='huyz')
 
 post_build: aur_post_build
 

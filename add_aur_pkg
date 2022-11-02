@@ -71,4 +71,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     maintainer, last_packager = get_aur_packager(args.pkg_name)
+    if (maintainer is None or maintainer == 'None'):
+        maintainer = last_packager
     add_pkg(args.pkg_name, maintainer)
