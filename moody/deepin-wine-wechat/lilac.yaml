@@ -1,13 +1,16 @@
-
 maintainers:
   - github: moodyhunter
+
+build_prefix: multilib-testing
 
 pre_build_script: aur_pre_build(maintainers='Vufa')
 
 post_build: aur_post_build
 
+repo_depends:
+  - deepin-wine6-stable
+
 update_on:
   - source: aur
     aur: deepin-wine-wechat
-
 # vim:set ts=4 sw=2 et:
