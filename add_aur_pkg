@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Credit: cubercsl https://github.com/cubercsl/repo/blob/master/scripts/add_aur_pkg
+
 """
 Usage: add_aur_pkg aur_pkg...
 
