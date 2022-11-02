@@ -8,11 +8,31 @@ Usage: add_aur_pkg aur_pkg...
 """
 import argparse
 import os
+from typing import Tuple, Optional
+import lilac2.vendor.htmlutils as htmlutils
+import requests
 
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 REPO = Path(ROOT, 'moody')
+
+UserAgent = "Moody's add_aur_pkg script"
+
+s = requests.Session()
+s.headers['User-Agent'] = UserAgent
+
+
+def get_aur_packager(name: str) -> Tuple[Optional[str], str]:
+    doc = htmlutils.parse_document_from_requests(f'https://aur.archlinux.org/pkgbase/{name}', s)
+    maintainer_cell = doc.xpath('//th[text()="Maintainer:"]/following::td[1]')[0]
+    maintainer: Optional[str] = maintainer_cell.text_content().strip().split(None, 1)[0]
+    last_packager_cell = doc.xpath('//th[text()="Last Packager:"]/following::td[1]')[0]
+    last_packager = last_packager_cell.text_content().strip()
+    if not maintainer:
+        maintainer = None
+    print(f'{name}: {maintainer} {last_packager}')
+    return maintainer, last_packager
 
 
 def usage():
@@ -50,4 +70,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Add an AUR Pakage in repo")
     parser.add_argument('pkg_name')
     args = parser.parse_args()
-    add_pkg(args.pkg_name, ["Moody"])
+
+    maintainer, last_packager = get_aur_packager(args.pkg_name)
+    add_pkg(args.pkg_name, maintainer)

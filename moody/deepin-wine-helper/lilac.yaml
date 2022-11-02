@@ -2,7 +2,7 @@
 maintainers:
   - github: moodyhunter
 
-pre_build_script: aur_pre_build(maintainers=['Moody'])
+pre_build_script: aur_pre_build(maintainers='JoveYu')
 
 post_build: aur_post_build
 
