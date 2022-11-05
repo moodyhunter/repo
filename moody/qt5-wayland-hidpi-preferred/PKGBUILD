@@ -28,6 +28,7 @@ prepare() {
     mkdir -p build
     cd $_pkgfqn
     patch -Np1 <$srcdir/hidpi.patch
+    patch -Np1 <$srcdir/fix-menu-pos.patch
 }
 
 build() {
