@@ -1,0 +1,12 @@
+maintainers:
+  - github: moodyhunter
+
+pre_build_script: aur_pre_build(maintainers='bidulock')
+
+post_build: aur_post_build
+
+update_on:
+  - source: aur
+    aur: perl-log-dispatch
+    strip_release: true
+

@@ -5,8 +5,10 @@ pre_build_script: aur_pre_build(maintainers='cclin')
 
 post_build: aur_post_build
 
+repo_depends:
+  - perl-log-dispatch
+
 update_on:
   - source: aur
     aur: texlive-latexindent-meta
     strip_release: true
-
