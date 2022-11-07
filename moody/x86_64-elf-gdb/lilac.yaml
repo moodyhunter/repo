@@ -15,5 +15,5 @@ repo_depends:
 update_on:
   - source: alpm
     alpm: gdb
-    repos: [testing, core]
+    repos: [testing, extra]
     strip_release: true
