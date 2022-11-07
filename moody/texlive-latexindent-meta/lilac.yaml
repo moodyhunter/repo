@@ -1,0 +1,12 @@
+maintainers:
+  - github: moodyhunter
+
+pre_build_script: aur_pre_build(maintainers='cclin')
+
+post_build: aur_post_build
+
+update_on:
+  - source: aur
+    aur: texlive-latexindent-meta
+    strip_release: true
+
