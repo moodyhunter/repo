@@ -16,4 +16,4 @@ update_on:
   - source: alpm
     alpm: gdb
     repos: [testing, extra]
-    strip_release: true
+    strip_release: false

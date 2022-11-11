@@ -4,7 +4,7 @@ _target=x86_64-elf
 
 pkgname=$_target-gdb
 pkgver=12.1
-pkgrel=3
+pkgrel=1
 pkgdesc="GNU debugger crosscompiled for $_target development"
 arch=('x86_64')
 url="https://www.gnu.org/software/gdb"
