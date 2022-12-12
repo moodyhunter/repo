@@ -1,9 +1,7 @@
 maintainers:
   - github: moodyhunter
 
-build_prefix: multilib-testing
-
-pre_build_script: aur_pre_build(maintainers='JoveYu')
+pre_build_script: aur_pre_build(maintainers='SamLukeYes')
 
 post_build: aur_post_build
 
@@ -11,3 +9,4 @@ update_on:
   - source: aur
     aur: deepin-wine-helper
     strip_release: true
+
