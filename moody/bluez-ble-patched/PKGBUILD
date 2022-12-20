@@ -15,7 +15,7 @@ provides=('bluez')
 conflicts=('bluez')
 groups=('bluez-ble-patched')
 makedepends=('dbus' 'libical' 'systemd' 'alsa-lib' 'json-c' 'ell' 'python-docutils')
-source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.{xz,sign}
+source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname%-ble-patched}-${pkgver}.tar.{xz,sign}
         bluetooth.modprobe
         BLE-lights.patch::https://raw.githubusercontent.com/Depau/consmart-ble-mqtt/master/0001-Workaround-for-non-compliant-BLE-lights.patch
 )
@@ -23,7 +23,7 @@ source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.{xz,
 sha256sums=('2565a4d48354b576e6ad92e25b54ed66808296581c8abb80587051f9993d96d4'
             'SKIP'
             '46c021be659c9a1c4e55afd04df0c059af1f3d98a96338236412e449bf7477b4'
-            'SKIP')
+            '9ded9aec14849be6d781bdbfbbe212ef76c985ed70f73bd7f9ffd667ddf6a03a')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
 
 prepare() {
