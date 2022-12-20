@@ -3,17 +3,14 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Geoffroy Carrier <geoffroy@archlinux.org>
 
-pkgbase=bluez-ble-patched
-pkgname=('bluez-ble-patched' 'bluez-utils-ble-patched' 'bluez-libs-ble-patched' 'bluez-cups-ble-patched' 'bluez-hid2hci-ble-patched' 'bluez-plugins-ble-patched')
+pkgbase=bluez
+pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.65
 pkgrel=3
 url="http://www.bluez.org/"
 arch=('x86_64')
 license=('GPL2')
 options=('debug')
-provides=('bluez')
-conflicts=('bluez')
-groups=('bluez-ble-patched')
 makedepends=('dbus' 'libical' 'systemd' 'alsa-lib' 'json-c' 'ell' 'python-docutils')
 source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname%-ble-patched}-${pkgver}.tar.{xz,sign}
         bluetooth.modprobe
@@ -56,7 +53,7 @@ check() {
 }
 
 
-package_bluez-ble-patched() {
+package_bluez() {
   pkgdesc="Daemons for the bluetooth protocol stack"
   depends=('libical' 'dbus' 'glib2' 'alsa-lib' 'json-c')
   backup=('etc/bluetooth/main.conf')
@@ -97,7 +94,7 @@ package_bluez-ble-patched() {
   rm "${pkgdir}"/usr/lib/libbluetooth.so*
 }
 
-package_bluez-utils-ble-patched() {
+package_bluez-utils() {
   pkgdesc="Development and debugging utilities for the bluetooth protocol stack"
   depends=('dbus' 'systemd' 'glib2')
   optdepends=('ell: for btpclient')
@@ -131,7 +128,7 @@ package_bluez-utils-ble-patched() {
   mv "${pkgdir}"/usr/share/man/man1/hid2hci.1 "${srcdir}"/
 }
 
-package_bluez-libs-ble-patched() {
+package_bluez-libs() {
   pkgdesc="Deprecated libraries for the bluetooth protocol stack"
   depends=('glibc')
   provides=('libbluetooth.so')
@@ -144,7 +141,7 @@ package_bluez-libs-ble-patched() {
        install-pkgconfigDATA
 }
 
-package_bluez-cups-ble-patched() {
+package_bluez-cups() {
   pkgdesc="CUPS printer backend for Bluetooth printers"
   depends=('cups')
 
@@ -155,7 +152,7 @@ package_bluez-cups-ble-patched() {
   rm "${pkgdir}"/usr/lib/libbluetooth.so*
 }
 
-package_bluez-hid2hci-ble-patched() {
+package_bluez-hid2hci() {
   pkgdesc="Put HID proxying bluetooth HCI's into HCI mode"
   depends=('systemd')
 
@@ -171,7 +168,7 @@ package_bluez-hid2hci-ble-patched() {
   rm "${pkgdir}"/usr/lib/libbluetooth.so*
 }
 
-package_bluez-plugins-ble-patched() {
+package_bluez-plugins() {
   pkgdesc="bluez plugins (PS3 Sixaxis controller)"
   depends=('systemd')
 
