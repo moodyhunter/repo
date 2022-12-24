@@ -8,7 +8,7 @@ index 001f99d0..c7007e9a 100644
  
 +    QWaylandScreen *maxScaleScreen = nullptr;
 +    int _maxScale = 0;
-+    for(const auto &screen : qAsConst(mSurface->m_screens)) {
++    for(const auto &screen : std::as_const(mSurface->m_screens)) {
 +        int scale = screen->isPlaceholder() ? 1 : static_cast<QWaylandScreen *>(screen)->scale();
 +        if (scale > _maxScale) {
 +            _maxScale = scale;

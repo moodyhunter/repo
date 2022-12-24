@@ -20,7 +20,7 @@ _pkgfn=${_pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
     hidpi.patch)
 sha256sums=('f08ba8e14fbec34d57332ad897c5a9150453ed07a611abb18c89c6cc5e5b62fc'
-            '3100c9642635af1fc16d64574722827a07762ef562cff72a2b2af6ba7910b85c')
+            '731c41c4b72f019d967909670529f20fb4f00883205a922b42cada920ec3a509')
 
 prepare() {
     cd $_pkgfn
