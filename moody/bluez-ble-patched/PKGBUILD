@@ -12,7 +12,7 @@ arch=('x86_64')
 license=('GPL2')
 options=('debug')
 makedepends=('dbus' 'libical' 'systemd' 'alsa-lib' 'json-c' 'ell' 'python-docutils')
-source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname%-ble-patched}-${pkgver}.tar.{xz,sign}
+source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.{xz,sign}
         bluetooth.modprobe
         BLE-lights.patch::https://raw.githubusercontent.com/Depau/consmart-ble-mqtt/master/0001-Workaround-for-non-compliant-BLE-lights.patch
 )
