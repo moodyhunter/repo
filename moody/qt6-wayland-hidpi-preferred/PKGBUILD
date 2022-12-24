@@ -5,7 +5,7 @@
 _pkgname=qt6-wayland
 pkgname=${_pkgname}-hidpi-preferred
 _qtver=6.5.0-beta1
-pkgver=${_qtver/-/}
+pkgver=6.5.0beta1
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
@@ -19,7 +19,7 @@ options=(debug)
 _pkgfn=${_pkgname/6-/}-everywhere-src-$_qtver
 source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
     hidpi.patch)
-sha256sums=('f08ba8e14fbec34d57332ad897c5a9150453ed07a611abb18c89c6cc5e5b62fc'
+sha256sums=('31b55bceb429701edcd2cea3f2d82ebcd92531706bc9234bc08feaa82723ec56'
             '731c41c4b72f019d967909670529f20fb4f00883205a922b42cada920ec3a509')
 
 prepare() {
