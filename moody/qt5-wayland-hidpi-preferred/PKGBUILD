@@ -17,18 +17,15 @@ provides=('qt5-wayland')
 conflicts=('qt5-wayland')
 _pkgfqn=${_pkgname/5-/}
 source=(git+https://invent.kde.org/qt/qt/$_pkgfqn#commit=$_commit
-    hidpi.patch
-    fix-menu-pos.patch)
+    hidpi.patch)
 sha256sums=('SKIP'
-            '8e20b2b8a10916c4d5f002001f2784bd9c12b6771385e84fda71972fa081a67c'
-            '3a0675890fa7fdc0287a501c6520ba9104e4ddd13d7de2c5dded1bcfcb39fd0b')
+            '8e20b2b8a10916c4d5f002001f2784bd9c12b6771385e84fda71972fa081a67c')
 options=(debug)
 
 prepare() {
     mkdir -p build
     cd $_pkgfqn
     patch -Np1 <$srcdir/hidpi.patch
-    patch -Np1 <$srcdir/fix-menu-pos.patch
 }
 
 build() {
