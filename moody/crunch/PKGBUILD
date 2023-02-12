@@ -2,7 +2,7 @@
 
 pkgname=crunch
 pkgver=3.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A wordlist generator where you can specify a standard character set or a character set you specify and generate all possible combinations and permutations."
 arch=(i686 x86_64)
 url="http://sourceforge.net/projects/crunch-wordlist/"
