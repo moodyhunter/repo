@@ -3,10 +3,10 @@
 
 _pkgname=qt5-wayland
 pkgname=${_pkgname}-hidpi-preferred
-_basever=5.15.6
+_basever=5.15.8
 pkgver=5.15.8+kde+r57
 pkgrel=1
-_commit=9c607c771acdb3d820be7f112db99213a6c6d7eb
+_commit=61db28f8735290acf70c124eaaccc9e6553e1cda
 arch=('x86_64')
 url='https://www.qt.io'
 license=('GPL3' 'LGPL3' 'FDL' 'custom')
