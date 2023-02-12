@@ -1,13 +1,12 @@
 maintainers:
   - github: moodyhunter
 
-build_prefix: multilib-testing
-
-pre_build_script: aur_pre_build(maintainers='wszqkzqk')
+pre_build_script: aur_pre_build(maintainers='SamLukeYes')
 
 post_build: aur_post_build
 
 update_on:
   - source: aur
-    aur: deepin-udis86
+    aur: lib32-udis86-git
     strip_release: true
+
