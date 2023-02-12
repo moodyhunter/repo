@@ -13,7 +13,7 @@ license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
-depends=(xz libmpc i686-elf-binutils)
+depends=(xz libmpc $_target-binutils)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
