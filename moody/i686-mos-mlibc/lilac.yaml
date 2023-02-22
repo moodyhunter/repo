@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../lilac-yaml-schema.yaml
+
+maintainers:
+  - github: moodyhunter
+
+build_prefix: testing-x86_64
+
+repo_depends:
+  - i686-mos-binutils
+  - i686-mos-gcc
+
+update_on:
+  - source: vcs
+    vcs: git+https://github.com/moodyhunter/mlibc-mos.git

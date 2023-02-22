@@ -1,0 +1,39 @@
+# Maintainer: Moody <mooodyhunter@outlook.com>
+
+_target=i686-mos
+_mos_arch=x86
+pkgname=$_target-mlibc
+pkgver=1.0.0
+pkgrel=2
+pkgdesc="mlibc for the $_target toolchain"
+arch=('x86_64')
+url="https://github.com/moodyhunter/mlibc-mos"
+license=('MIT')
+provides=($pkgname)
+groups=($_target-toolchain)
+makedepends=(git gcc meson)
+depends=(xz libmpc $_target-binutils $_target-gcc mos-api-headers-${_mos_arch})
+
+source=(
+    "mlibc::git+https://github.com/moodyhunter/mlibc-mos.git"
+)
+
+sha512sums=('SKIP')
+
+prepare() {
+    cd mlibc
+    meson setup build \
+        --prefix=$pkgdir/opt/$_target/$_target \
+        --cross-file=ci/mos.cross-file \
+        -Ddisable_linux_option=true
+}
+
+build() {
+    cd mlibc/build
+    ninja
+}
+
+package() {
+    cd mlibc/build
+    ninja install
+}
