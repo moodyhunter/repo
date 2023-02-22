@@ -18,10 +18,9 @@ makedepends=(git gcc meson $_target-gcc mos-api-headers-${_mos_arch})
 source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
 sha512sums=('SKIP')
 
-prepare() {
+pkgver() {
     cd mos
-    mkdir build && cd build
-    cmake .. -DMOS_ARCH=x86 -D__MOS_HAS_NO_COMPILER=ON
+    printf "%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {

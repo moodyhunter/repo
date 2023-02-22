@@ -5,6 +5,12 @@ maintainers:
 
 build_prefix: moody-x86_64
 
+pre_build: vcs_update
+post_build: git_pkgbuild_commit
+
+repo_depends:
+  - mos-api-headers-x86-git
+
 update_on:
   - source: vcs
     vcs: git+https://github.com/moodyhunter/mlibc-mos.git
