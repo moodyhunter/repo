@@ -6,12 +6,12 @@ _pkgname=binutils
 pkgname=$_target-$_pkgname
 pkgver=2.40
 _basedir=$_pkgname-$pkgver
-pkgrel=6
+pkgrel=8
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the $_target target"
 arch=('x86_64')
 url='http://www.gnu.org/software/binutils/'
 license=(GPL)
-depends=(zlib libelf)
+depends=(zlib libelf $_target-mlibc)
 provides=($pkgname)
 groups=($_target-toolchain)
 options=(!emptydirs !docs)
@@ -34,10 +34,21 @@ build() {
 
     $srcdir/$_basedir/configure \
         --target=$_target \
-        --prefix="/opt/i686-mos/" \
+        --prefix="/usr/" \
+        --with-sysroot="/usr/$_target" \
         --disable-nls \
-        --enable-shared \
-        --disable-werror
+        --with-pic \
+        --enable-deterministic-archives \
+        --disable-werror \
+        --enable-gold \
+        --enable-ld=default \
+        --enable-thread \
+        --enable-multilib \
+        --enable-plugins \
+        --with-gnu-as \
+        --with-gnu-ld \
+        --host=${CHOST} \
+        --build=${CHOST}
 
     make
 }
@@ -51,4 +62,7 @@ check() {
 package() {
     cd $srcdir/$_pkgname-build
     make DESTDIR="$pkgdir" install
+    # Remove info documents that conflict with host version
+    rm -r "$pkgdir/usr/share/info"
+    rm "$pkgdir"/usr/lib/bfd-plugins/libdep.so
 }
