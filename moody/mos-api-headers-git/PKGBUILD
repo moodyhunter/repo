@@ -4,7 +4,7 @@ _arch=x86
 _target=i686-mos
 _sysroot=/opt/${_target}/${_target}
 
-pkgname=mos-api-headers-${_arch}
+pkgname=mos-api-headers-${_arch}-git
 pkgver=739.8061fc8
 pkgrel=3
 pkgdesc="MOS API headers for ${_arch}"
