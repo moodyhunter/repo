@@ -2,6 +2,7 @@
 # Maintainer: Finlay Maroney <finman292004@protonmail.com>
 
 _target=i686-mos
+_sysroot=/usr/$_target
 
 pkgname=$_target-gcc
 pkgver=12.2.0
@@ -39,8 +40,9 @@ build() {
     # Configure, we are building in seperate directory to cleanly seperate the binaries from the source
     ../gcc-$pkgver/configure \
         --target=$_target \
-        --prefix="/opt/i686-mos" \
-        --with-sysroot="/opt/i686-mos/i686-mos" \
+        --prefix="/usr" \
+        --libdir="/usr/lib" \
+        --with-sysroot="${_sysroot}" \
         --disable-werror \
         --enable-shared \
         --disable-build-format-warnings
@@ -53,6 +55,6 @@ package() {
     cd "$_target-$pkgname-$pkgver-build"
     make install DESTDIR=$pkgdir
 
-    rm -rf $pkgdir/opt/i686-mos/share/info
-    rm -rf $pkgdir/opt/i686-mos/share/man/man7
+    rm -rf $pkgdir/usr/share/info
+    rm -rf $pkgdir/usr/share/man/man7
 }
