@@ -12,8 +12,8 @@ url="https://www.gnu.org/software/gcc"
 license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
-makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils $_target-mlibc)
+makedepends=(gmp mpfr gcc $_target-mlibc)
+depends=(xz libmpc $_target-binutils)
 options+=(!lto)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
