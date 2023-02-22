@@ -2,8 +2,9 @@
 
 _target=i686-mos
 _mos_arch=x86
+_pkgbase=$_target-mlibc
 
-pkgname=$_target-mlibc-git
+pkgname=$_pkgbase-git
 pkgver=1.0.0
 pkgrel=3
 pkgdesc="mlibc for the $_target toolchain"
@@ -13,11 +14,7 @@ license=('MIT')
 provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(git gcc meson $_target-gcc mos-api-headers-${_mos_arch})
-
-source=(
-    "mlibc::git+https://github.com/moodyhunter/mlibc-mos.git"
-)
-
+source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
 sha512sums=('SKIP')
 
 prepare() {
@@ -29,7 +26,7 @@ prepare() {
 prepare() {
     cd mlibc
     meson setup build \
-        --prefix=$pkgdir/opt/$_target/$_target \
+        --prefix=$pkgdir/usr/$_target \
         --cross-file=ci/mos.cross-file \
         -Ddisable_linux_option=true
 }
