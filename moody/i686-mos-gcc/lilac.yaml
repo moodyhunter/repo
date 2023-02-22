@@ -13,7 +13,7 @@ repo_depends:
 
 update_on:
   - source: manual
-    manual: 12
+    manual: 1
   - source: alpm
     alpm: gcc
     repos: [testing, core]
