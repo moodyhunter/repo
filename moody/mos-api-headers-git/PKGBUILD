@@ -7,7 +7,7 @@ _pkgbase=mos-api-headers-${_arch}
 
 pkgname=${_pkgbase}-git
 pkgver=741.8c71ac7
-pkgrel=2
+pkgrel=3
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
 url="https://github.com/moodyhunter/MOS"
