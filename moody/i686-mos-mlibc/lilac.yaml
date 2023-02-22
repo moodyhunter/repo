@@ -8,6 +8,7 @@ build_prefix: testing-x86_64
 repo_depends:
   - i686-mos-binutils
   - i686-mos-gcc
+  - mos-api-headers-x86-git
 
 update_on:
   - source: vcs
