@@ -2,12 +2,12 @@
 
 _arch=x86
 _target=i686-mos
-_sysroot=/opt/${_target}/${_target}
+_sysroot=/usr/${_target}
 _pkgbase=mos-api-headers-${_arch}
 
 pkgname=${_pkgbase}-git
 pkgver=741.8c71ac7
-pkgrel=1
+pkgrel=2
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
 url="https://github.com/moodyhunter/MOS"
@@ -16,11 +16,7 @@ provides=($pkgname ${_pkgbase})
 conflicts=(${_pkgbase})
 groups=(mos-toolchain)
 makedepends=(git cmake python)
-
-source=(
-    "mos::git+https://github.com/moodyhunter/MOS.git"
-)
-
+source=("mos::git+https://github.com/moodyhunter/MOS.git")
 sha512sums=('SKIP')
 
 pkgver() {
