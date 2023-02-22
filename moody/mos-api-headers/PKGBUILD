@@ -1,0 +1,46 @@
+# Maintainer: Moody <mooodyhunter@outlook.com>
+
+_arch=x86
+_target=i686-mos
+_sysroot=/opt/${_target}/${_target}
+
+pkgname=mos-api-headers-${_arch}
+pkgver=1.0.0
+pkgrel=2
+pkgdesc="MOS API headers for ${_arch}"
+arch=('any')
+url="https://github.com/moodyhunter/MOS"
+license=('GPL3')
+provides=($pkgname)
+groups=(mos-toolchain)
+makedepends=(git cmake python)
+
+source=(
+    "mos::git+https://github.com/moodyhunter/MOS.git"
+)
+
+sha512sums=('SKIP')
+
+prepare() {
+    cd mos
+    mkdir build && cd build
+    cmake .. -DMOS_ARCH=x86 -D__MOS_HAS_NO_COMPILER=ON
+}
+
+build() {
+    cd mos/build
+    cmake --build . --target mos_syscall_decl
+}
+
+package() {
+    mkdir -p $pkgdir/${_sysroot}/include
+
+    # generated syscall stubs
+    cp -r mos/build/include/mos $pkgdir/${_sysroot}/include
+
+    # public headers
+    cp -r mos/kernel/include/public/mos $pkgdir/${_sysroot}/include
+
+    # platform headers
+    cp mos/arch/${_arch}/include/mos/platform_syscall.h $pkgdir/${_sysroot}/include/mos
+}
