@@ -12,6 +12,7 @@ arch=('x86_64')
 url="https://github.com/moodyhunter/mlibc-mos"
 license=('MIT')
 provides=($_pkgbase $_pkgbase-git)
+conflicts=($_pkgbase)
 groups=($_target-toolchain)
 makedepends=(git gcc meson $_target-gcc mos-api-headers-${_mos_arch})
 source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
