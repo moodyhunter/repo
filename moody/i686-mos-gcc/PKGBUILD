@@ -13,7 +13,7 @@ license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils)
+depends=(xz libmpc $_target-binutils $_target-mlibc)
 options+=(!lto)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
