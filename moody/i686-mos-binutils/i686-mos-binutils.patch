@@ -98,7 +98,7 @@ index 2bae9099..8f39cf89 100644
    ;;
  
 +*-*-mos)
-+  NATIVE_LIB_DIRS='/libs'
++  NATIVE_LIB_DIRS='/lib /data/lib'
 +  ;;
 +
  *-*-linux*)
