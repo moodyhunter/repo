@@ -21,6 +21,11 @@ source=(
 
 sha512sums=('SKIP')
 
+pkgver() {
+    cd mos
+    printf "%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
 prepare() {
     cd mos
     mkdir build && cd build
