@@ -10,10 +10,11 @@ pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
 license=('GPL')
+provides=($pkgname)
+groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
 depends=(xz libmpc $_target-binutils)
-groups=($_target-toolchain)
-provides=($pkgname)
+options+=(!lto)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
