@@ -10,7 +10,7 @@ post_build: git_pkgbuild_commit
 
 update_on:
   - source: manual
-    manual: 12.2.0-10
+    manual: 12.2.0
   - source: alpm
     alpm: gcc
     repos: [testing, core]
