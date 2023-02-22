@@ -111,4 +111,4 @@ index 00000000..9d11a528
 +++ b/ld/emulparams/elf_i386_mos.sh
 @@ -0,0 +1,2 @@
 +source_sh ${srcdir}/emulparams/elf_i386.sh
-+ELF_INTERPRETER_NAME=\"/lib/libc.so\"
++ELF_INTERPRETER_NAME=\"/lib/ld.so\"
