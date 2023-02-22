@@ -5,7 +5,7 @@ _target=i686-mos
 _sysroot=/opt/${_target}/${_target}
 
 pkgname=mos-api-headers-${_arch}
-pkgver=1.1.8061fc88fc7150507081d694927a89f9e241531d
+pkgver=739.8061fc8
 pkgrel=1
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
