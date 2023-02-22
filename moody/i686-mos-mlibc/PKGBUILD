@@ -2,9 +2,10 @@
 
 _target=i686-mos
 _mos_arch=x86
-pkgname=$_target-mlibc
+
+pkgname=$_target-mlibc-git
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="mlibc for the $_target toolchain"
 arch=('x86_64')
 url="https://github.com/moodyhunter/mlibc-mos"
@@ -19,6 +20,12 @@ source=(
 )
 
 sha512sums=('SKIP')
+
+prepare() {
+    cd mos
+    mkdir build && cd build
+    cmake .. -DMOS_ARCH=x86 -D__MOS_HAS_NO_COMPILER=ON
+}
 
 prepare() {
     cd mlibc
