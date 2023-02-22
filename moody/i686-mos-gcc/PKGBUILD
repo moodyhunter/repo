@@ -1,9 +1,9 @@
 # Maintainer: c0repwn3r <core@coredoes.dev>
 # Maintainer: Finlay Maroney <finman292004@protonmail.com>
 
-_target=i686-elf
+_target=i686-mos
 
-pkgname=$_target-gcc-wtf
+pkgname=$_target-gcc
 pkgver=12.2.0
 pkgrel=4
 pkgdesc="GNU gcc for the $_target toolchain"
@@ -14,19 +14,24 @@ provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
 depends=(xz libmpc $_target-binutils)
+options+=(!lto)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
+    "i686-mos-gcc.patch"
 )
 sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
-            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
+            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982'
+            '45c9ac11c19a4a301db6d72eaafabf1faab88e0d6505c125e3497d8b162d1598')
 
-build() {
+prepare() {
     # Patch gcc
     cd "gcc-$pkgver"
     patch --strip=1 --input="$srcdir/gcc12-Wno-format-security.patch"
-    cd ..
+    patch -Np1 < "$srcdir/i686-mos-gcc.patch"
+}
 
+build() {
     # Create temporary build dir
     mkdir -p "$_target-$pkgname-$pkgver-build"
     cd "$_target-$pkgname-$pkgver-build"
@@ -34,31 +39,20 @@ build() {
     # Configure, we are building in seperate directory to cleanly seperate the binaries from the source
     ../gcc-$pkgver/configure \
         --target=$_target \
-        --prefix="/usr" \
-        --libexecdir="/usr/lib" \
-        --disable-build-format-warnings \
-        --enable-languages=c,c++ \
-        --disable-shared \
-        --disable-multilib \
-        --disable-libffi \
-        --disable-libgomp \
-        --disable-libmudflap \
-        --disable-libquadmath \
-        --disable-libssp \
-        --disable-nls \
-        --with-newlib \
-        --without-headers \
-        --disable-tls \
-        --disable-bootstrap \
-        --disable-hosted-libstdcxx
+        --prefix="/opt/i686-mos" \
+        --with-sysroot="/opt/i686-mos/i686-mos" \
+        --disable-werror \
+        --enable-shared \
+        --disable-build-format-warnings
+
     # Build
     make
 }
 
 package() {
     cd "$_target-$pkgname-$pkgver-build"
-    make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3}
-    # Remove conflicting files
-    rm -rf $pkgdir/usr/share/info
-    rm -rf $pkgdir/usr/share/man/man7
+    make install DESTDIR=$pkgdir
+
+    rm -rf $pkgdir/opt/i686-mos/share/info
+    rm -rf $pkgdir/opt/i686-mos/share/man/man7
 }

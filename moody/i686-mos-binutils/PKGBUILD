@@ -36,6 +36,7 @@ build() {
         --target=$_target \
         --prefix="/opt/i686-mos/" \
         --disable-nls \
+        --enable-shared \
         --disable-werror
 
     make
