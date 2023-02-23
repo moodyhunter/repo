@@ -19,7 +19,7 @@ source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
 sha512sums=('SKIP')
 
 pkgver() {
-    cd mos
+    cd mlibc
     printf "%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
