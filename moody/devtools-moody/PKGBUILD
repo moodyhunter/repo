@@ -2,7 +2,7 @@
 
 pkgname=devtools-moody
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Development tools for the moody's toolchain"
 arch=('x86_64')
 license=('GPL')
