@@ -6,7 +6,7 @@ _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
 pkgver=12.2.0
-pkgrel=24
+pkgrel=25
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
@@ -15,7 +15,7 @@ provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc $_target-mlibc)
 depends=(xz libmpc $_target-binutils)
-options+=(!lto !debug)
+options+=(!lto !debug !staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
