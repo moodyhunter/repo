@@ -6,7 +6,7 @@ _pkgname=binutils
 pkgname=$_target-$_pkgname
 pkgver=2.40
 _basedir=$_pkgname-$pkgver
-pkgrel=9
+pkgrel=10
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the $_target target"
 arch=('x86_64')
 url='http://www.gnu.org/software/binutils/'
@@ -43,6 +43,7 @@ build() {
         --enable-gold \
         --enable-ld=default \
         --enable-thread \
+        --enable-shared \
         --enable-multilib \
         --enable-plugins \
         --with-gnu-as \
