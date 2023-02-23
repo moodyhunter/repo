@@ -28,7 +28,8 @@ prepare() {
     meson setup build \
         --prefix=$pkgdir/usr/$_target \
         --cross-file=ci/mos.cross-file \
-        -Ddisable_linux_option=true
+        -Ddisable_linux_option=true \
+        -Ddefault_library='static'
 }
 
 build() {
