@@ -6,7 +6,7 @@ _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
 pkgver=12.2.0
-pkgrel=13
+pkgrel=14
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
@@ -15,7 +15,7 @@ provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc $_target-mlibc)
 depends=(xz libmpc $_target-binutils)
-options+=(!lto)
+options+=(!lto !debug)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
@@ -45,8 +45,15 @@ build() {
         --with-sysroot="${_sysroot}" \
         --disable-werror \
         --disable-nls \
+        --with-native-system-header-dir="/include" \
+        --with-build-sysroot="${_sysroot}" \
         --enable-shared \
-        --disable-build-format-warnings
+        --disable-build-format-warnings \
+        --enable-languages=c,c++ \
+        --enable-__cxa_atexit \
+        --enable-linker-build-id \
+        --enable-lto \
+        --enable-plugin
 
     # Build
     make
@@ -58,17 +65,18 @@ package() {
     # https://github.com/archlinux/svntogit-community/blob/packages/aarch64-linux-gnu-gcc/trunk/PKGBUILD
     make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
 
-    # Strip target binaries
-    find "$pkgdir/usr/lib/gcc/$_target/" "$pkgdir/usr/$_target/lib" -type f \
-        -and \( -name \*.a -or -name \*.o \) -exec $_target-objcopy \
-        -R .comment -R .note -R .debug_info -R .debug_aranges -R .debug_pubnames \
-        -R .debug_pubtypes -R .debug_abbrev -R .debug_line -R .debug_str \
-        -R .debug_ranges -R .debug_loc '{}' \;
+    # strip target binaries
+    find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
+       -type f -and \( -name \*.a -or -name \*.o \) \
+       -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
+           -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
+           -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
 
-    # Strip host binaries
-    find "$pkgdir/usr/bin/" "$pkgdir/usr/lib/gcc/$_target/" -type f \
-        -and \( -executable \) -exec strip '{}' \;
+    # strip host binaries
+    find "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib/gcc/$_target/ -type f -and \( -executable \) -exec strip '{}' \;
 
-    rm -rf "$pkgdir/usr/share"
-    rm -rf "$pkgdir/usr/include"
+    # Remove files that conflict with host gcc package
+    rm -r "$pkgdir"/usr/share/man/man7
+    rm -r "$pkgdir"/usr/share/info
+    rm -r "$pkgdir"/usr/share/gcc-$pkgver
 }
