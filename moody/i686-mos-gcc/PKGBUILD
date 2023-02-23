@@ -6,7 +6,7 @@ _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
 pkgver=12.2.0
-pkgrel=22
+pkgrel=23
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
@@ -23,7 +23,7 @@ source=(
 )
 sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
             '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982'
-            'f60b29b3f6c0734c0c63362a9aa8b57c120b8fdfe112743d6a8efc0023202246')
+            '3fd7d139fa50c8c237a244bc331c531a4182051c7bb86ca03857c2771aedf1c0')
 
 prepare() {
     # Patch gcc

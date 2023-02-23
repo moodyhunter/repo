@@ -57,7 +57,7 @@ index c5064dd37666..69dcb95fb0f7 100644
  	;;
 diff --git a/gcc/config/mos.h b/gcc/config/mos.h
 new file mode 100644
-index 000000000000..700695f8a994
+index 000000000000..df2e6279bcd4
 --- /dev/null
 +++ b/gcc/config/mos.h
 @@ -0,0 +1,36 @@
@@ -84,19 +84,19 @@ index 000000000000..700695f8a994
 +
 +/* Enable dynamic linking by default. */
 +#undef LINK_SPEC
-+#define LINK_SPEC "%{shared:-shared} %{static:-static} %{!shared: %{!static: %{rdynamic:-export-dynamic}}} -z noexecstack"
++#define LINK_SPEC "%{shared:-shared} %{!shared: %{!static: %{rdynamic:-export-dynamic} -dynamic-linker /lib/ld.so} %{static:-static}}"
 +
 +/* Additional predefined macros. */
 +#undef TARGET_OS_CPP_BUILTINS
-+#define TARGET_OS_CPP_BUILTINS()      \
-+  do {                                \
-+    builtin_define ("__mos__");      \
-+    builtin_define ("__unix__");      \
-+    builtin_assert ("system=mos");   \
-+    builtin_assert ("system=unix");   \
-+    builtin_assert ("system=posix");   \
-+  } while(0);
-+
++#define TARGET_OS_CPP_BUILTINS()                                                                                                                \
++    do                                                                                                                                          \
++    {                                                                                                                                           \
++        builtin_define("__mos__");                                                                                                              \
++        builtin_define("__unix__");                                                                                                             \
++        builtin_assert("system=mos");                                                                                                           \
++        builtin_assert("system=unix");                                                                                                          \
++        builtin_assert("system=posix");                                                                                                         \
++    } while (0);
 diff --git a/libgcc/config.host b/libgcc/config.host
 index 8c56fcae5d2f..31b260042f0c 100644
 --- a/libgcc/config.host
@@ -117,7 +117,7 @@ index 8c56fcae5d2f..31b260042f0c 100644
  	tmake_file="$tmake_file i386/t-crtpc t-crtfm i386/t-msabi"
  	tm_file="$tm_file i386/darwin-lib.h"
 diff --git a/libstdc++-v3/configure b/libstdc++-v3/configure
-index eac603921216..cc2f6ec3c4ed 100755
+index eac603921216..396582bf32b0 100755
 --- a/libstdc++-v3/configure
 +++ b/libstdc++-v3/configure
 @@ -5100,7 +5100,7 @@ else
@@ -165,79 +165,126 @@ index eac603921216..cc2f6ec3c4ed 100755
    int off_t_is_large[(LARGE_OFF_T % 2147483629 == 721
  		       && LARGE_OFF_T % 2147483647 == 1)
  		      ? 1 : -1];
-@@ -12191,7 +12191,7 @@ else
+@@ -7005,6 +7005,10 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | uclinuxfdpiceabi)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
++mos)
++  lt_cv_deplibs_check_method=pass_all
++  ;;
++
+ netbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+@@ -11551,6 +11555,17 @@ fi
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++mos)
++  dynamic_linker="$host_os ld.so"
++  sys_lib_dlsearch_path_spec="/lib /data/lib"
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major $libname${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=no
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -12191,7 +12206,7 @@ else
    lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
    lt_status=$lt_dlunknown
    cat > conftest.$ac_ext <<_LT_EOF
 -#line 12194 "configure"
-+#line 12206 "configure"
++#line 12219 "configure"
  #include "confdefs.h"
  
  #if HAVE_DLFCN_H
-@@ -12297,7 +12297,7 @@ else
+@@ -12297,7 +12312,7 @@ else
    lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
    lt_status=$lt_dlunknown
    cat > conftest.$ac_ext <<_LT_EOF
 -#line 12300 "configure"
-+#line 12312 "configure"
++#line 12325 "configure"
  #include "confdefs.h"
  
  #if HAVE_DLFCN_H
-@@ -15981,7 +15981,7 @@ $as_echo "$glibcxx_cv_atomic_long_long" >&6; }
+@@ -15230,6 +15245,17 @@ fi
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++mos)
++  dynamic_linker="$host_os ld.so"
++  sys_lib_dlsearch_path_spec="/lib /data/lib"
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major $libname${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=no
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -15981,7 +16007,7 @@ $as_echo "$glibcxx_cv_atomic_long_long" >&6; }
    # Fake what AC_TRY_COMPILE does.
  
      cat > conftest.$ac_ext << EOF
 -#line 15984 "configure"
-+#line 15996 "configure"
++#line 16019 "configure"
  int main()
  {
    typedef bool atomic_type;
-@@ -16016,7 +16016,7 @@ $as_echo "$glibcxx_cv_atomic_bool" >&6; }
+@@ -16016,7 +16042,7 @@ $as_echo "$glibcxx_cv_atomic_bool" >&6; }
      rm -f conftest*
  
      cat > conftest.$ac_ext << EOF
 -#line 16019 "configure"
-+#line 16031 "configure"
++#line 16054 "configure"
  int main()
  {
    typedef short atomic_type;
-@@ -16051,7 +16051,7 @@ $as_echo "$glibcxx_cv_atomic_short" >&6; }
+@@ -16051,7 +16077,7 @@ $as_echo "$glibcxx_cv_atomic_short" >&6; }
      rm -f conftest*
  
      cat > conftest.$ac_ext << EOF
 -#line 16054 "configure"
-+#line 16066 "configure"
++#line 16089 "configure"
  int main()
  {
    // NB: _Atomic_word not necessarily int.
-@@ -16087,7 +16087,7 @@ $as_echo "$glibcxx_cv_atomic_int" >&6; }
+@@ -16087,7 +16113,7 @@ $as_echo "$glibcxx_cv_atomic_int" >&6; }
      rm -f conftest*
  
      cat > conftest.$ac_ext << EOF
 -#line 16090 "configure"
-+#line 16102 "configure"
++#line 16125 "configure"
  int main()
  {
    typedef long long atomic_type;
-@@ -16243,7 +16243,7 @@ $as_echo "mutex" >&6; }
+@@ -16243,7 +16269,7 @@ $as_echo "mutex" >&6; }
    # unnecessary for this test.
  
      cat > conftest.$ac_ext << EOF
 -#line 16246 "configure"
-+#line 16258 "configure"
++#line 16281 "configure"
  int main()
  {
    _Decimal32 d1;
-@@ -16285,7 +16285,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+@@ -16285,7 +16311,7 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
    # unnecessary for this test.
  
    cat > conftest.$ac_ext << EOF
 -#line 16288 "configure"
-+#line 16300 "configure"
++#line 16323 "configure"
  template<typename T1, typename T2>
    struct same
    { typedef T2 type; };
-@@ -74120,6 +74120,5981 @@ _ACEOF
+@@ -74120,6 +74146,5981 @@ _ACEOF
  
  
      ;;
@@ -6238,3 +6285,36 @@ index ae5283b7ad37..8ba18a570f9d 100644
    *)
      AC_MSG_ERROR([No support for this host/target combination.])
     ;;
+diff --git a/libtool.m4 b/libtool.m4
+index 17f8e5f30749..01126c9d75df 100644
+--- a/libtool.m4
++++ b/libtool.m4
+@@ -2491,6 +2491,17 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu* | uclinuxfdpiceabi)
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++mos)
++  dynamic_linker="$host_os ld.so"
++  sys_lib_dlsearch_path_spec="/lib /data/lib"
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major $libname${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=no
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -3090,6 +3101,10 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | uclinuxfdpiceabi)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
++mos)
++  lt_cv_deplibs_check_method=pass_all
++  ;;
++
+ netbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so\.[[0-9]]+\.[[0-9]]+|_pic\.a)$'
