@@ -6,7 +6,7 @@ _pkgname=binutils
 pkgname=$_target-$_pkgname
 pkgver=2.40
 _basedir=$_pkgname-$pkgver
-pkgrel=16
+pkgrel=17
 pkgdesc="A set of programs to assemble and manipulate binary and object files for the $_target target"
 arch=('x86_64')
 url='http://www.gnu.org/software/binutils/'
@@ -68,7 +68,7 @@ package() {
     rm "$pkgdir"/usr/share/man/man1/$_target-{dlltool,windres,windmc}*
     rm "$pkgdir"/usr/lib/bfd-plugins/libdep.so
     rm "$pkgdir"/usr/lib/libctf*
-    rm "$pkgdir"/usr/lib/libsframe.so*
+    rm "$pkgdir"/usr/lib/libsframe*
     rm -r "$pkgdir"/usr/include
     rm "$pkgdir"/usr/etc/gprofng.rc || true
     rm -r "$pkgdir"/usr/lib/gprofng/ || true
