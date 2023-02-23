@@ -2,7 +2,7 @@
 
 pkgname=devtools-moody
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Development tools for the moody's toolchain"
 arch=('x86_64')
 license=('GPL')
@@ -20,7 +20,7 @@ package() {
 
     cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman-moody.conf
 [moody]
-Server = http://localhost:8000/$arch
+Server = http://192.168.200.201:8000/$arch
 SigLevel = Optional
 EOF
 }
