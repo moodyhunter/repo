@@ -55,6 +55,10 @@ package() {
     cd "$_target-$pkgname-$pkgver-build"
     make install DESTDIR=$pkgdir
 
-    rm -rf $pkgdir/usr/share/info
-    rm -rf $pkgdir/usr/share/man/man7
+    # Strip host binaries
+    find "$pkgdir/usr/bin/" "$pkgdir/usr/lib/gcc/$_target/" -type f \
+        -and \( -executable \) -exec strip '{}' \;
+
+    # Remove files that conflict with host gcc package
+    rm -r "$pkgdir/usr/share/"{man/man7,info,"gcc-$pkgver"}
 }
