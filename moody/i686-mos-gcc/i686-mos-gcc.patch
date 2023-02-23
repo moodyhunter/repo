@@ -84,7 +84,7 @@ index 000000000000..700695f8a994
 +
 +/* Enable dynamic linking by default. */
 +#undef LINK_SPEC
-+#define LINK_SPEC "%{shared:-shared} %{static:-static} %{!shared: %{!static: %{rdynamic:-export-dynamic}}}"
++#define LINK_SPEC "%{shared:-shared} %{static:-static} %{!shared: %{!static: %{rdynamic:-export-dynamic}}} -z noexecstack"
 +
 +/* Additional predefined macros. */
 +#undef TARGET_OS_CPP_BUILTINS
