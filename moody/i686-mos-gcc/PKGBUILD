@@ -15,7 +15,7 @@ provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc $_target-mlibc)
 depends=(xz libmpc $_target-binutils)
-options+=(!lto !debug !staticlibs)
+options+=(!lto !debug staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "gcc12-Wno-format-security.patch"
@@ -42,6 +42,7 @@ build() {
         --target=$_target \
         --prefix="/usr" \
         --libdir="/usr/lib" \
+        --libexecdir="/usr/libexec" \
         --with-sysroot="${_sysroot}" \
         --disable-werror \
         --disable-nls \
