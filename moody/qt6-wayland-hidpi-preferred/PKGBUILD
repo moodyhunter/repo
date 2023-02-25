@@ -5,8 +5,8 @@
 _pkgname=qt6-wayland
 pkgname=${_pkgname}-hidpi-preferred
 _qtver=6.5.0-beta2
-pkgver=6.5.0beta2
-pkgrel=2
+pkgver=6.5.0beta3
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
