@@ -3,7 +3,7 @@
 _pkgname=gitea-runner
 pkgname=$_pkgname-git
 pkgver=v0.0.1.r14.436b441
-pkgrel=4
+pkgrel=5
 pkgdesc="Act runner is a runner for Gitea."
 arch=('x86_64')
 url="https://gitea.com/gitea/act_runner"
@@ -12,7 +12,7 @@ depends=('docker')
 makedepends=('git' 'go')
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-install="$_pkgname.install"
+install="PKGBUILD"
 source=(
     "$_pkgname::git+https://gitea.com/gitea/act_runner"
     'gitea-runner.service'
@@ -48,4 +48,23 @@ package() {
     install -Dm644 "$srcdir/$_pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
     install -Dm644 "$srcdir/$_pkgname.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/$_pkgname.conf"
     install -d -m755 "$pkgdir/var/lib/$_pkgname"
+}
+
+post_install() {
+    echo
+    echo "Please register runner with command:"
+    echo "cd /var/lib/$_pkgname/ && sudo -u gitea-runner act_runner register --no-interactive --instance <YOUR_INSTANCE> --token <YOUR_TOKEN>"
+    echo
+}
+
+pre_remove() {
+    if systemctl -q is-enabled $_pkgname.service; then
+        systemctl disable $_pkgname.service
+    fi
+}
+
+post_remove() {
+    echo
+    echo "Remove $_pkgname user and this HOME /var/lib/$_pkgname manually, if not needed anymore."
+    echo
 }
