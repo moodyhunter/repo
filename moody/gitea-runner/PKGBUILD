@@ -3,7 +3,7 @@
 _pkgname=gitea-runner
 pkgname=$_pkgname-git
 pkgver=v0.0.1.r14.436b441
-pkgrel=2
+pkgrel=3
 pkgdesc="Act runner is a runner for Gitea."
 arch=('x86_64')
 url="https://gitea.com/gitea/act_runner"
@@ -12,7 +12,7 @@ depends=('docker')
 makedepends=('git' 'go')
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-install=
+install="$_pkgname.install"
 source=(
     "$_pkgname::git+https://gitea.com/gitea/act_runner"
     'gitea-runner.service'
@@ -29,7 +29,6 @@ sha512sums=('SKIP'
             '63c8e075f3a87edf209e0d1498e2e55284d1cfb69887e441a52edfdb79731973ad630db0f9f4a588eebb70b9e99083605c34da7df1767d0e5bf2664c4ad94c8a'
             'f572ecfb97ce26363418e78eb0f6614f42576b99665acc15242057e9632d255eb9be83850f55f09cc5d852da7cf0dcce5d6213afedc57cc4c65b5cbb62684175'
             '6bac7a8f76226774f05d1279585994dae33b64b1766672b000504b157d79661673c3d0cb22fa62549f6bce1a4ff3a0e7e0a42f0ecb62218e2054cbc418ac0998')
-
 
 pkgver() {
     cd "$srcdir/$_pkgname"
@@ -49,16 +48,4 @@ package() {
     install -Dm644 "$srcdir/$_pkgname.sysusers" "$pkgdir/usr/lib/sysusers.d/$_pkgname.conf"
     install -Dm644 "$srcdir/$_pkgname.tmpfiles" "$pkgdir/usr/lib/tmpfiles.d/$_pkgname.conf"
     install -d -m755 "$pkgdir/var/lib/$_pkgname"
-}
-
-pre_remove() {
-    if systemctl -q is-enabled $_pkgname.service; then
-        systemctl disable $_pkgname.service
-    fi
-}
-
-post_remove() {
-    echo
-    echo "Remove $_pkgname user and this HOME /var/lib/$_pkgname manually, if not needed anymore."
-    echo
 }

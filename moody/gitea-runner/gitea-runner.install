@@ -1,0 +1,18 @@
+post_install() {
+    echo
+    echo "Please register runner with command:"
+    echo "cd /var/lib/$_pkgname/ && sudo -u gitea-runner act_runner register --no-interactive --instance <YOUR_INSTANCE> --token <YOUR_TOKEN>"
+    echo
+}
+
+pre_remove() {
+    if systemctl -q is-enabled $_pkgname.service; then
+        systemctl disable $_pkgname.service
+    fi
+}
+
+post_remove() {
+    echo
+    echo "Remove $_pkgname user and this HOME /var/lib/$_pkgname manually, if not needed anymore."
+    echo
+}
