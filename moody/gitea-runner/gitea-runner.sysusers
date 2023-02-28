@@ -1,0 +1,2 @@
+u gitea-runner - "Gitea Actions Runner" /var/lib/gitea-runner -
+m gitea-runner docker

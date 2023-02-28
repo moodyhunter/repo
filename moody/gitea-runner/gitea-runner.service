@@ -1,0 +1,12 @@
+[Unit]
+Description=Gitea Action Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=gitea-runner
+WorkingDirectory=~
+ExecStart=/usr/bin/act_runner daemon
+
+[Install]
+WantedBy=default.target
