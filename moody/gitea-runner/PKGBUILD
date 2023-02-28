@@ -3,7 +3,7 @@
 _pkgname=gitea-runner
 pkgname=$_pkgname-git
 pkgver=v0.0.1.r14.436b441
-pkgrel=3
+pkgrel=4
 pkgdesc="Act runner is a runner for Gitea."
 arch=('x86_64')
 url="https://gitea.com/gitea/act_runner"
