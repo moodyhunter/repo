@@ -2,7 +2,7 @@
 
 _pkgname=gitea-runner
 pkgname=$_pkgname-git
-pkgver=v0.0.1.r32.48b05a0
+pkgver=v0.0.1.r33.9f90cba
 pkgrel=1
 pkgdesc="Act runner is a runner for Gitea."
 arch=('x86_64')
