@@ -6,7 +6,7 @@ _sysroot=/usr/${_target}
 _pkgbase=mos-api-headers-${_arch}
 
 pkgname=${_pkgbase}-git
-pkgver=898.ff336eb
+pkgver=916.e4cb67b
 pkgrel=1
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
@@ -45,5 +45,5 @@ package() {
     cp -r mos/kernel/include/public/mos $pkgdir/${_sysroot}/include
 
     # platform headers
-    cp mos/arch/${_arch}/include/mos/platform_syscall.h $pkgdir/${_sysroot}/include/mos
+    cp -r mos/arch/${_arch}/include/public/mos $pkgdir/${_sysroot}/include
 }
