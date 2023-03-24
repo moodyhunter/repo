@@ -24,26 +24,18 @@ pkgver() {
     printf "%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
-prepare() {
+build() {
     cd mos
     mkdir build && cd build
-    cmake .. -DMOS_ARCH=x86 -D__MOS_HAS_NO_COMPILER=ON
-}
+    cmake .. \
+        -DMOS_ARCH=x86 \
+        -D__MOS_HAS_NO_COMPILER=ON \
+        -DCMAKE_INSTALL_PREFIX=${pkgdir}/usr/$_target
 
-build() {
-    cd mos/build
     cmake --build . --target mos_syscall_decl
 }
 
 package() {
-    mkdir -p $pkgdir/${_sysroot}/include
-
-    # generated syscall stubs
-    cp -r mos/build/include/mos $pkgdir/${_sysroot}/include
-
-    # public headers
-    cp -r mos/kernel/include/public/mos $pkgdir/${_sysroot}/include
-
-    # platform headers
-    cp -r mos/arch/${_arch}/include/public/mos $pkgdir/${_sysroot}/include
+    cd mos/build
+    cmake --install . --component mos-api-headers
 }
