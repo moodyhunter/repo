@@ -1,0 +1,32 @@
+# Maintainer: Moody Liu <mooodyhunter@outlook.com>
+
+pkgname=moodyapi-client-git
+pkgver=r924.131cb15
+pkgrel=1
+pkgdesc="MoodyAPI CLI Client"
+arch=('x86_64')
+url="https://github.com/moodyhunter/MoodyAPI"
+license=('GPL')
+groups=('moodyapi')
+makedepends=('git' 'rust' 'cargo' 'protobuf')
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+backup=('etc/moodyapi/Client.ini')
+source=('moodyapi::git+https://github.com/moodyhunter/MoodyAPI.git')
+sha256sums=('SKIP')
+options=('!lto')
+
+pkgver() {
+    cd "$srcdir/moodyapi/ApiClient"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd "$srcdir/moodyapi/ApiClient"
+    cargo build --release
+}
+
+package() {
+    cd "$srcdir/moodyapi/ApiClient"
+    install -Dm755 ./target/release/apiclient "$pkgdir/usr/bin/mclient"
+}
