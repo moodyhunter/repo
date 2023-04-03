@@ -6,7 +6,7 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.66
-pkgrel=2
+pkgrel=3
 url="http://www.bluez.org/"
 arch=('x86_64')
 license=('GPL2')
@@ -15,17 +15,20 @@ makedepends=('dbus' 'libical' 'systemd' 'alsa-lib' 'json-c' 'ell' 'python-docuti
 source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.{xz,sign}
         bluetooth.modprobe
         BLE-lights.patch::https://raw.githubusercontent.com/Depau/consmart-ble-mqtt/master/0001-Workaround-for-non-compliant-BLE-lights.patch
+        hack-ble-flags.patch
 )
 # see https://www.kernel.org/pub/linux/bluetooth/sha256sums.asc
 sha256sums=('39fea64b590c9492984a0c27a89fc203e1cdc74866086efb8f4698677ab2b574'
             'SKIP'
             '46c021be659c9a1c4e55afd04df0c059af1f3d98a96338236412e449bf7477b4'
-            '9ded9aec14849be6d781bdbfbbe212ef76c985ed70f73bd7f9ffd667ddf6a03a')
+            '9ded9aec14849be6d781bdbfbbe212ef76c985ed70f73bd7f9ffd667ddf6a03a'
+            'c83efda0e25ec9ea8c3a38fe1acb032a5e8ad1c145a3ed38dc2324b729aa27e6')
 validpgpkeys=('E932D120BC2AEC444E558F0106CA9F5D1DCF2659') # Marcel Holtmann <marcel@holtmann.org>
 
 prepare() {
   cd "${pkgname}"-${pkgver}
   patch -Np1 < $srcdir/BLE-lights.patch
+  patch -Np1 < $srcdir/hack-ble-flags.patch
 }
 
 build() {
