@@ -6,7 +6,7 @@ _sysroot=/usr/${_target}
 _pkgbase=mos-api-headers-${_arch}
 
 pkgname=${_pkgbase}-git
-pkgver=986.4065e78
+pkgver=987.b64679f
 pkgrel=1
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
