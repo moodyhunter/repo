@@ -3,7 +3,7 @@ maintainers:
 
 build_prefix: moody-x86_64
 
-pre_build_script: aur_pre_build(maintainers='taotieren')
+pre_build_script: aur_pre_build(maintainers='Kingtous')
 
 post_build: aur_post_build
 
