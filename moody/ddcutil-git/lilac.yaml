@@ -3,11 +3,11 @@ maintainers:
 
 build_prefix: moody-x86_64
 
-pre_build_script: aur_pre_build(maintainers='taotieren')
+pre_build_script: aur_pre_build(maintainers='yochananmarqos')
 
 post_build: aur_post_build
 
 update_on:
   - source: aur
-    aur: rustdesk-nightly
+    aur: ddcutil-git
     strip_release: true
