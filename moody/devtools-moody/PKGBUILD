@@ -16,7 +16,7 @@ package() {
     ln -s /usr/bin/archbuild "$pkgdir"/usr/bin/moody-x86_64-build
 
     mkdir -p "$pkgdir"/usr/share/devtools
-    cp /usr/share/devtools/pacman-extra.conf "$pkgdir"/usr/share/devtools/pacman-moody.conf
+    cp /usr/share/devtools/pacman-testing.conf "$pkgdir"/usr/share/devtools/pacman-moody.conf
 
     cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman-moody.conf
 [moody]
