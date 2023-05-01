@@ -21,6 +21,8 @@ pre_build_script: |
         # line = f'pkgrel={_next_pkgrel(pkgrel)}'
         pass
 
+    print(line) # wtf
+
 post_build: git_pkgbuild_commit
 
 update_on:
