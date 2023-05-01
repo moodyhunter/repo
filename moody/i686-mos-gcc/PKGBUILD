@@ -5,8 +5,8 @@ _target=i686-mos
 _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
-pkgver=12.2.0
-pkgrel=33
+pkgver=13.1.0
+pkgrel=1
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
@@ -20,7 +20,7 @@ source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "i686-mos-gcc.patch"
 )
-sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
+sha256sums=('61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86'
             '733ff52ac69ab8964c758d6ca5e3bdc2483ee2db0078eaec06e90372b7704eec')
 
 prepare() {
