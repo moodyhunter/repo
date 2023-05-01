@@ -12,6 +12,8 @@ repo_depends:
   - x86_64-elf-binutils
 
 update_on:
+  - source: manual
+    manual: 12.2.0
   - source: alpm
     alpm: gcc
     repos: [testing, core]
