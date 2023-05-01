@@ -1,7 +1,7 @@
 _pkgname=lilac
 pkgname=$_pkgname-mod-git
-pkgver=r1083.ab57ef6
-pkgrel=2
+pkgver=r1084.4b205af
+pkgrel=1
 pkgdesc='The strangely patched Arch Linux package builder'
 arch=(any)
 url='https://github.com/moodyhunter/lilac'
