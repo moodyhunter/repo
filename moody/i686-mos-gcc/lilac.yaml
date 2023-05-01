@@ -19,6 +19,7 @@ pre_build_script: |
         line = 'pkgrel=1'
       else:
         # line = f'pkgrel={_next_pkgrel(pkgrel)}'
+        pass
 
 post_build: git_pkgbuild_commit
 
