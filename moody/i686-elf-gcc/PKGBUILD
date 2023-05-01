@@ -17,17 +17,10 @@ depends=(xz libmpc $_target-binutils)
 options+=(!lto)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
-    "gcc12-Wno-format-security.patch"
 )
-sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
-            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982')
+sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff')
 
 build() {
-    # Patch gcc
-    cd "gcc-$pkgver"
-    patch --strip=1 --input="$srcdir/gcc12-Wno-format-security.patch"
-    cd ..
-
     # Create temporary build dir
     mkdir -p "$_target-$pkgname-$pkgver-build"
     cd "$_target-$pkgname-$pkgver-build"
