@@ -44,6 +44,7 @@ TEMPLATE = '''maintainers:
 
 pre_build_script: aur_pre_build(maintainers={maintainers})
 
+build_prefix: moody-x86_64
 post_build: aur_post_build
 
 update_on:
