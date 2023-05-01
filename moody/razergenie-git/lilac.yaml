@@ -6,6 +6,10 @@ pre_build_script: aur_pre_build(maintainers='z3ntu')
 build_prefix: moody-x86_64
 post_build: aur_post_build
 
+repo_depends:
+  - libopenrazer
+  - openrazer-git
+
 update_on:
   - source: aur
     aur: razergenie-git
