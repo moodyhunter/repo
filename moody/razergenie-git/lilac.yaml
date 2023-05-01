@@ -8,7 +8,7 @@ post_build: aur_post_build
 
 repo_depends:
   - libopenrazer
-  - openrazer-git
+  - openrazer-daemon
 
 update_on:
   - source: aur
