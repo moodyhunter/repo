@@ -18,18 +18,15 @@ depends=(xz libmpc $_target-binutils)
 options+=(!lto !debug staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
-    "gcc12-Wno-format-security.patch"
     "i686-mos-gcc.patch"
 )
 sha256sums=('e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff'
-            '07c72cccb31b5fb035042eca910c9bf0d3008aaeb04350534bb7f5aede209982'
             '3fd7d139fa50c8c237a244bc331c531a4182051c7bb86ca03857c2771aedf1c0')
 
 prepare() {
     # Patch gcc
     cd "gcc-$pkgver"
-    patch --strip=1 --input="$srcdir/gcc12-Wno-format-security.patch"
-    patch -Np1 < "$srcdir/i686-mos-gcc.patch"
+    patch -Np1 <"$srcdir/i686-mos-gcc.patch"
 }
 
 build() {
@@ -68,10 +65,10 @@ package() {
 
     # strip target binaries
     find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
-       -type f -and \( -name \*.a -or -name \*.o \) \
-       -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
-           -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
-           -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
+        -type f -and \( -name \*.a -or -name \*.o \) \
+        -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
+        -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
+        -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
 
     # strip host binaries
     find "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib/gcc/$_target/ -type f -and \( -executable \) -exec strip '{}' \;
