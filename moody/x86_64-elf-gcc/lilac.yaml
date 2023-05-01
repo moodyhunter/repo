@@ -5,7 +5,6 @@ maintainers:
 
 build_prefix: moody-x86_64
 
-pre_build_script: update_pkgver_and_pkgrel(_G.newver)
 post_build: git_pkgbuild_commit
 
 repo_depends:
@@ -13,8 +12,4 @@ repo_depends:
 
 update_on:
   - source: manual
-    manual: 12.2.0
-  - source: alpm
-    alpm: gcc
-    repos: [testing, core]
-    strip_release: true
+    manual: 13.1.0
