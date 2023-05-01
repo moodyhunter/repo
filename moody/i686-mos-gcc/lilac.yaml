@@ -7,13 +7,18 @@ build_prefix: moody-x86_64
 
 pre_build_script: |
   newver = _G.newver
-  if newver != _G.oldver:
-      # major version changed, reset pkgrel
-      newver = newver + "-1"
-  else:
-      pkgver, pkgrel = get_pkgver_and_pkgrel()
-      newver = newver + "-" + pkgrel # keep old pkgrel
-  update_pkgver_and_pkgrel(newver)
+
+  pkgver, pkgrel = get_pkgver_and_pkgrel()
+  assert pkgver is not None and pkgrel is not None
+
+  for line in edit_file('PKGBUILD'):
+    if line.startswith('pkgver=') and pkgver != newver:
+        line = f'pkgver={newver}'
+    elif line.startswith('pkgrel='):
+      if pkgver != newver:
+        line = 'pkgrel=1'
+      else:
+        # line = f'pkgrel={_next_pkgrel(pkgrel)}'
 
 post_build: git_pkgbuild_commit
 
