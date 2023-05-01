@@ -5,24 +5,7 @@ maintainers:
 
 build_prefix: moody-x86_64
 
-pre_build_script: |
-  newver = _G.newver
-
-  pkgver, pkgrel = get_pkgver_and_pkgrel()
-  assert pkgver is not None and pkgrel is not None
-
-  for line in edit_file('PKGBUILD'):
-    if line.startswith('pkgver=') and pkgver != newver:
-        line = f'pkgver={newver}'
-    elif line.startswith('pkgrel='):
-      if pkgver != newver:
-        line = 'pkgrel=1'
-      else:
-        # line = f'pkgrel={_next_pkgrel(pkgrel)}'
-        pass
-
-    print(line) # wtf
-
+pre_build_script: update_pkgver_and_pkgrel(_G.newver)
 post_build: git_pkgbuild_commit
 
 update_on:
