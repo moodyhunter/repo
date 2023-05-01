@@ -1,0 +1,16 @@
+maintainers:
+  - github: moodyhunter
+
+build_prefix: moody-x86_64
+
+repo_depends:
+  - pid_children-git
+
+pre_build: aur_pre_build
+
+post_build: aur_post_build
+
+update_on:
+  - source: github
+    github: moodyhunter/lilac
+  - alias: python

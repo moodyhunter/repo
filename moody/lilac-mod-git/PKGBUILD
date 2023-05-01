@@ -1,0 +1,44 @@
+_pkgname=lilac
+pkgname=$_pkgname-mod-git
+pkgver=r1083.ab57ef6
+pkgrel=1
+pkgdesc='The strangely patched Arch Linux package builder'
+arch=(any)
+url='https://github.com/moodyhunter/lilac'
+license=(GPL3)
+depends=(python git devtools nvchecker gnupg pid_children fakeroot bubblewrap pacman-contrib
+    python-requests python-lxml python-yaml python-tomli python-tomli-w pyalpm
+    python-structlog python-prctl)
+makedepends=(python-setuptools-scm)
+optdepends=(
+    'smtp-forwarder: for sending error reports'
+    'python-sqlalchemy: for recording build results in a database'
+)
+checkdepends=(python-pytest)
+provides=("$_pkgname" "$pkgname-git")
+conflicts=("$_pkgname" "$pkgname-git")
+source=('git+https://github.com/moodyhunter/lilac.git')
+sha256sums=('SKIP')
+
+pkgver() {
+    cd $_pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd $_pkgname
+    python setup.py build
+}
+
+check() {
+    cd $_pkgname
+    pytest
+}
+
+package() {
+    cd $_pkgname
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+    install -Dm644 config.toml.sample scripts/dbsetup.sql -t "$pkgdir"/usr/share/doc/lilac
+    install -Dm755 scripts/cleanup-dblck "$pkgdir"/usr/bin/cleanup-dblck
+    install -Dm644 scripts/cleanup-dblck.service "$pkgdir"/usr/lib/systemd/system/cleanup-dblck.service
+}
