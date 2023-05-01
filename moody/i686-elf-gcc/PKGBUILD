@@ -5,7 +5,6 @@ _target=i686-elf
 
 pkgname=$_target-gcc
 pkgver=12.2.0
-_commit=9a167ee2f8b9a0859fbab6cfdc276cf1f272effe
 pkgrel=7
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
