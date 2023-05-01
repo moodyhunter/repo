@@ -5,9 +5,18 @@ maintainers:
 
 build_prefix: moody-x86_64
 
-pre_build_script: update_pkgver_and_pkgrel(_G.newver)
+pre_build_script: |
+  newver = _G.newver
+  if newver != _G.oldver:
+      # major version changed, reset pkgrel
+      newver = newver + "-1"
+  else:
+      pkgver, pkgrel = get_pkgver_and_pkgrel()
+      newver = newver + "-" + pkgrel # keep old pkgrel
+  update_pkgver_and_pkgrel(newver)
+
 post_build: git_pkgbuild_commit
 
 update_on:
   - source: manual
-    manual: 12.2.0-31
+    manual: 13.1.0
