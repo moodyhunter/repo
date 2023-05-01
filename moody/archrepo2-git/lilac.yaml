@@ -1,0 +1,12 @@
+maintainers:
+  - github: moodyhunter
+
+build_prefix: moody-x86_64
+pre_build_script: aur_pre_build(maintainers='malacology')
+
+post_build: aur_post_build
+
+update_on:
+  - source: aur
+    aur: archrepo2-git
+    strip_release: true
