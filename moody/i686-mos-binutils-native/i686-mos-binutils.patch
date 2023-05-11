@@ -1,0 +1,114 @@
+diff --git a/bfd/config.bfd b/bfd/config.bfd
+index a4c6c8e8..cb595f14 100644
+--- a/bfd/config.bfd
++++ b/bfd/config.bfd
+@@ -598,6 +598,10 @@ case "${targ}" in
+     targ_defvec=i386_elf32_vec
+     targ_selvecs="iamcu_elf32_vec i386_coff_vec"
+     ;;
++  i[3-7]86-*-mos*)
++    targ_defvec=i386_elf32_vec
++    targ_selvecs=
++    ;;
+   i[3-7]86-*-aros*)
+     targ_defvec=i386_elf32_vec
+     targ_selvecs=iamcu_elf32_vec
+diff --git a/config.sub b/config.sub
+index dba16e84..7d902b5d 100755
+--- a/config.sub
++++ b/config.sub
+@@ -1754,7 +1754,7 @@ case $os in
+ 	     | onefs* | tirtos* | phoenix* | fuchsia* | redox* | bme* \
+ 	     | midnightbsd* | amdhsa* | unleashed* | emscripten* | wasi* \
+ 	     | nsk* | powerunix* | genode* | zvmoe* | qnx* | emx* | zephyr* \
+-	     | fiwix* )
++	     | fiwix* | mos* )
+ 		;;
+ 	# This one is extra strict with allowed versions
+ 	sco3.2v2 | sco3.2v[4-9]* | sco5v6*)
+diff --git a/gas/configure.tgt b/gas/configure.tgt
+index 62f806bd..9d995998 100644
+--- a/gas/configure.tgt
++++ b/gas/configure.tgt
+@@ -229,6 +229,7 @@ case ${generic_target} in
+   i386-*-haiku*)			fmt=elf em=haiku ;;
+   i386-*-genode*)			fmt=elf ;;
+   i386-*-bsd*)				fmt=aout em=386bsd ;;
++  i386-*-mos*)        fmt=elf em=gnu ;;
+   i386-*-netbsd*-gnu* | \
+   i386-*-knetbsd*-gnu | \
+   i386-*-netbsd* | \
+diff --git a/ld/Makefile.am b/ld/Makefile.am
+index d31021c1..b66e8d51 100644
+--- a/ld/Makefile.am
++++ b/ld/Makefile.am
+@@ -279,6 +279,7 @@ ALL_EMULATION_SOURCES = \
+ 	eelf_i386_fbsd.c \
+ 	eelf_i386_haiku.c \
+ 	eelf_i386_ldso.c \
++	eelf_i386_mos.c \
+ 	eelf_i386_sol2.c \
+ 	eelf_i386_vxworks.c \
+ 	eelf_iamcu.c \
+@@ -766,6 +767,7 @@ $(ALL_EMULATION_SOURCES) $(ALL_64_EMULATION_SOURCES): $(GEN_DEPENDS)
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf32xtensa.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf32z80.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386.Pc@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_mos.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_be.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_fbsd.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_haiku.Pc@am__quote@
+diff --git a/ld/Makefile.in b/ld/Makefile.in
+index ee0c98f6..d441192b 100644
+--- a/ld/Makefile.in
++++ b/ld/Makefile.in
+@@ -776,6 +776,7 @@ ALL_EMULATION_SOURCES = \
+ 	eelf_i386_fbsd.c \
+ 	eelf_i386_haiku.c \
+ 	eelf_i386_ldso.c \
++	eelf_i386_mos.c \
+ 	eelf_i386_sol2.c \
+ 	eelf_i386_vxworks.c \
+ 	eelf_iamcu.c \
+@@ -2432,6 +2433,7 @@ $(ALL_EMULATION_SOURCES) $(ALL_64_EMULATION_SOURCES): $(GEN_DEPENDS)
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf32xtensa.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf32z80.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386.Pc@am__quote@
++@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_mos.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_be.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_fbsd.Pc@am__quote@
+ @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eelf_i386_haiku.Pc@am__quote@
+diff --git a/ld/configure.tgt b/ld/configure.tgt
+index 2bae9099..8f39cf89 100644
+--- a/ld/configure.tgt
++++ b/ld/configure.tgt
+@@ -366,6 +366,10 @@ i[3-7]86-*-linux-*)	targ_emul=elf_i386
+ 			targ64_extra_emuls="elf_x86_64 elf32_x86_64"
+ 			targ64_extra_libpath="elf_x86_64 elf32_x86_64"
+ 			;;
++i[3-7]86-*-mos*)
++			targ_emul=elf_i386_mos
++			targ_extra_emuls=elf_i386
++			;;
+ i[3-7]86-*-redox*)	targ_emul=elf_i386
+ 			targ_extra_emuls=elf_x86_64
+ 			;;
+@@ -1128,6 +1132,10 @@ i[03-9x]86-*-cygwin* | x86_64-*-cygwin*)
+   NATIVE_LIB_DIRS='/usr/lib /usr/lib/w32api'
+   ;;
+ 
++*-*-mos)
++  NATIVE_LIB_DIRS='/lib /data/lib'
++  ;;
++
+ *-*-linux*)
+   ;;
+ 
+diff --git a/ld/emulparams/elf_i386_mos.sh b/ld/emulparams/elf_i386_mos.sh
+new file mode 100644
+index 00000000..9d11a528
+--- /dev/null
++++ b/ld/emulparams/elf_i386_mos.sh
+@@ -0,0 +1,2 @@
++source_sh ${srcdir}/emulparams/elf_i386.sh
++ELF_INTERPRETER_NAME=\"/lib/ld.so\"
