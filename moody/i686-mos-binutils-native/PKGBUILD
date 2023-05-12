@@ -36,7 +36,7 @@ build() {
         --host=$_target \
         --target=$_target \
         --prefix="/opt/mos-sysroot/" \
-        --with-sysroot="/opt/mos-sysroot/$_target" \
+        --with-sysroot="/opt/mos-sysroot/" \
         --disable-nls \
         --with-pic \
         --enable-deterministic-archives \
