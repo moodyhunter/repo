@@ -8,8 +8,8 @@ arch=('x86_64')
 license=('GPL')
 url="https://github.com/moodyhunter/repo"
 depends=('devtools')
-source=()
-sha512sums=()
+source=('file:///dev/null')
+sha256sums=('e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
 
 package() {
     mkdir -p "$pkgdir"/usr/bin
