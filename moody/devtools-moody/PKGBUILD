@@ -15,10 +15,10 @@ package() {
     mkdir -p "$pkgdir"/usr/bin
     ln -s /usr/bin/archbuild "$pkgdir"/usr/bin/moody-x86_64-build
 
-    mkdir -p "$pkgdir"/usr/share/devtools
-    cp /usr/share/devtools/pacman.conf.d/extra-testing-x86_64_v3.conf "$pkgdir"/usr/share/devtools/pacman.conf.d/moody.conf
+    mkdir -p "$pkgdir"/usr/share/devtools/pacman.conf.d/
+    cp /usr/share/devtools/pacman.conf.d/extra-testing.conf "$pkgdir"/usr/share/devtools/pacman.conf.d/moody.conf
 
-    cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman-moody.conf
+    cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman.conf.d/moody.conf
 [moody]
 Server = http://192.168.200.201:8000/$arch
 SigLevel = Optional
