@@ -1,6 +1,7 @@
 # Maintainer: Moody <moodyhunter@outlook.com>
 
 pkgname=devtools-moody
+epoch=1
 pkgver=1.0.0
 pkgrel=4
 pkgdesc="Development tools for the moody's toolchain"
