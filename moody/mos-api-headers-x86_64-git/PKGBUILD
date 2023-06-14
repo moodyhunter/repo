@@ -1,12 +1,12 @@
 # Maintainer: Moody <mooodyhunter@outlook.com>
 
-_arch=x86
-_target=i686-mos
+_arch=x86_64
+_target=x86_64-mos
 _sysroot=/usr/${_target}
 _pkgbase=mos-api-headers-${_arch}
 
 pkgname=${_pkgbase}-git
-pkgver=1181.71e1d27
+pkgver=1208.06e50f8
 pkgrel=1
 pkgdesc="MOS API headers for ${_arch}"
 arch=('any')
@@ -26,9 +26,9 @@ pkgver() {
 
 build() {
     cd mos
-    mkdir build && cd build
+    mkdir -p build && cd build
     cmake .. \
-        -DMOS_ARCH=x86 \
+        -DMOS_ARCH=${_arch} \
         -D__MOS_HAS_NO_COMPILER=ON \
         -DCMAKE_INSTALL_PREFIX=${pkgdir}/usr/$_target
 
