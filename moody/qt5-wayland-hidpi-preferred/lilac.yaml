@@ -11,5 +11,5 @@ post_build: git_pkgbuild_commit
 update_on:
   - source: alpm
     alpm: qt5-wayland
-    repos: [kde-unstable, testing, extra]
+    repos: [kde-unstable, extra-testing, extra]
     strip_release: true

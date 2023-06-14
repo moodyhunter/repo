@@ -11,5 +11,5 @@ post_build: git_pkgbuild_commit
 update_on:
   - source: alpm
     alpm: binutils
-    repos: [testing, core]
+    repos: [core-testing, core]
     strip_release: true

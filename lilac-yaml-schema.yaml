@@ -12,7 +12,8 @@ properties:
       - extra-x86_64
       - multilib
       - extra-aarch64
-      - testing-x86_64
+      - core-testing-x86_64
+      - extra-testing-x86_64
       - testing-x86_64_v3
       - kde-unstable-x86_64
       - moody-x86_64

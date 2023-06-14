@@ -11,5 +11,5 @@ post_build: git_pkgbuild_commit
 update_on:
   - source: alpm
     alpm: bluez
-    repos: [testing, extra]
+    repos: [extra-testing, extra]
     strip_release: true
