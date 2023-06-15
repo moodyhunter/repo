@@ -1,0 +1,97 @@
+# Maintainer: c0repwn3r <core@coredoes.dev>
+# Maintainer: Finlay Maroney <finman292004@protonmail.com>
+
+_target=x86_64-mos
+_sysroot=/usr/$_target
+
+pkgname=$_target-gcc-stage1
+pkgver=13.1.0
+pkgrel=1
+pkgdesc="GNU gcc for the $_target toolchain"
+arch=('x86_64')
+url="https://www.gnu.org/software/gcc"
+license=('GPL')
+provides=($pkgname)
+groups=($_target-toolchain)
+makedepends=(gmp mpfr gcc)
+depends=(xz libmpc $_target-binutils)
+options+=(!lto !debug staticlibs)
+source=(
+    "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
+    "$_target-gcc.patch"
+)
+sha256sums=('61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86'
+            '38dd6eacb43b111ddda1b01695902eea36d6350badc09314a2952377fc865c1e')
+
+prepare() {
+    # Patch gcc
+    cd "gcc-$pkgver"
+    patch -Np1 <"$srcdir/$_target-gcc.patch"
+}
+
+build() {
+    # Create temporary build dir
+    mkdir -p "$_target-$pkgname-$pkgver-build"
+    cd "$_target-$pkgname-$pkgver-build"
+
+    # Credits @allanmcrae
+    # https://github.com/allanmcrae/toolchain/blob/f18604d70c5933c31b51a320978711e4e6791cf1/gcc/PKGBUILD
+    # TODO: properly deal with the build issues resulting from this
+    CFLAGS=${CFLAGS/-Werror=format-security/}
+    CXXFLAGS=${CXXFLAGS/-Werror=format-security/}
+
+    # Configure, we are building in seperate directory to cleanly seperate the binaries from the source
+    ../gcc-$pkgver/configure \
+        --target=$_target \
+        --prefix="/usr" \
+        --libdir="/usr/lib" \
+        --libexecdir="/usr/libexec" \
+        --disable-werror \
+        --disable-nls \
+        --disable-build-format-warnings \
+        --enable-languages=c,c++ \
+        --enable-__cxa_atexit \
+        --enable-linker-build-id \
+        --enable-plugin
+        # --enable-lto \
+        # --with-sysroot="${_sysroot}" \
+        # --enable-shared \
+
+    # Build stage 1
+    make all-gcc
+    make all-target-libgcc
+}
+
+package() {
+    cd "$_target-$pkgname-$pkgver-build"
+
+    # https://github.com/archlinux/svntogit-community/blob/packages/aarch64-linux-gnu-gcc/trunk/PKGBUILD
+    # make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
+    
+    # Install stage 1
+    make install-gcc DESTDIR=$pkgdir
+    make install-target-libgcc DESTDIR=$pkgdir
+
+    # # strip target binaries
+    # find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
+    #     -type f -and \( -name \*.a -or -name \*.o \) \
+    #     -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
+    #     -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
+    #     -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
+
+    # # strip host binaries
+    # find "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib/gcc/$_target/ -type f -and \( -executable \) -exec strip '{}' \;
+
+    # # Remove files that conflict with host gcc package
+    # rm -r "$pkgdir"/usr/share/man/man7
+    # rm -r "$pkgdir"/usr/share/info
+    # rm -r "$pkgdir"/usr/share/gcc-$pkgver
+
+
+    make install-gcc DESTDIR=$pkgdir
+    make install-target-libgcc DESTDIR=$pkgdir
+
+    # Remove conflicting files
+    rm -rf $pkgdir/usr/share/info
+    rm -rf $pkgdir/usr/share/man/man7
+}
