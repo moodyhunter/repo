@@ -14,14 +14,14 @@ license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils)
+depends=(xz libmpc $_target-binutils $_target-mlibc-headers)
 options+=(!lto !debug staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "$_target-gcc.patch"
 )
 sha256sums=('61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86'
-            '38dd6eacb43b111ddda1b01695902eea36d6350badc09314a2952377fc865c1e')
+    '38dd6eacb43b111ddda1b01695902eea36d6350badc09314a2952377fc865c1e')
 
 prepare() {
     # Patch gcc
@@ -52,46 +52,46 @@ build() {
         --enable-languages=c,c++ \
         --enable-__cxa_atexit \
         --enable-linker-build-id \
-        --enable-plugin
-        # --enable-lto \
-        # --with-sysroot="${_sysroot}" \
-        # --enable-shared \
+        --enable-plugin \
+        --enable-lto \
+        --with-sysroot="${_sysroot}" \
+        --with-native-system-header-dir="/include" \
+        --with-build-sysroot="${_sysroot}" \
+        --disable-shared
 
     # Build stage 1
-    make all-gcc
-    make all-target-libgcc
+    make
 }
 
 package() {
     cd "$_target-$pkgname-$pkgver-build"
 
     # https://github.com/archlinux/svntogit-community/blob/packages/aarch64-linux-gnu-gcc/trunk/PKGBUILD
-    # make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
-    
-    # Install stage 1
-    make install-gcc DESTDIR=$pkgdir
-    make install-target-libgcc DESTDIR=$pkgdir
+    make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
 
-    # # strip target binaries
-    # find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
-    #     -type f -and \( -name \*.a -or -name \*.o \) \
-    #     -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
-    #     -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
-    #     -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
+    # # Install stage 1
+    # make install-gcc DESTDIR=$pkgdir
+    # make install-target-libgcc DESTDIR=$pkgdir
 
-    # # strip host binaries
-    # find "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib/gcc/$_target/ -type f -and \( -executable \) -exec strip '{}' \;
+    # strip target binaries
+    find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
+        -type f -and \( -name \*.a -or -name \*.o \) \
+        -exec $_target-objcopy -R .comment -R .note -R .debug_info -R .debug_aranges \
+        -R .debug_pubnames -R .debug_pubtypes -R .debug_abbrev -R .debug_line \
+        -R .debug_str -R .debug_ranges -R .debug_loc '{}' \;
 
-    # # Remove files that conflict with host gcc package
-    # rm -r "$pkgdir"/usr/share/man/man7
-    # rm -r "$pkgdir"/usr/share/info
-    # rm -r "$pkgdir"/usr/share/gcc-$pkgver
+    # strip host binaries
+    find "$pkgdir"/usr/bin/ "$pkgdir"/usr/lib/gcc/$_target/ -type f -and \( -executable \) -exec strip '{}' \;
 
+    # Remove files that conflict with host gcc package
+    rm -r "$pkgdir"/usr/share/man/man7
+    rm -r "$pkgdir"/usr/share/info
+    rm -r "$pkgdir"/usr/share/gcc-$pkgver
 
-    make install-gcc DESTDIR=$pkgdir
-    make install-target-libgcc DESTDIR=$pkgdir
+    # make install-gcc DESTDIR=$pkgdir
+    # make install-target-libgcc DESTDIR=$pkgdir
 
-    # Remove conflicting files
-    rm -rf $pkgdir/usr/share/info
-    rm -rf $pkgdir/usr/share/man/man7
+    # # Remove conflicting files
+    # rm -rf $pkgdir/usr/share/info
+    # rm -rf $pkgdir/usr/share/man/man7
 }

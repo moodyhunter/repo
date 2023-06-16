@@ -9,7 +9,7 @@ pre_build: vcs_update
 post_build: git_pkgbuild_commit
 
 repo_depends:
-  - mos-api-headers-x86-git
+  - mos-api-headers-x86_64-git
 
 update_on:
   - source: vcs

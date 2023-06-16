@@ -1,20 +1,20 @@
 # Maintainer: Moody <mooodyhunter@outlook.com>
 
-_target=i686-mos
-_mos_arch=x86
-_pkgbase=$_target-mlibc
+_target=x86_64-mos
+_mos_arch=x86_64
+_pkgbase=$_target-mlibc-headers
 
 pkgname=$_pkgbase-git
-pkgver=2966.5dcedee3
-pkgrel=2
-pkgdesc="mlibc for the $_target toolchain"
-arch=('x86_64')
+pkgver=3254.064f4be8
+pkgrel=1
+pkgdesc="mlibc for the $_target toolchain - header-only"
+arch=('any')
 url="https://github.com/moodyhunter/mlibc-mos"
 license=('MIT')
 provides=($_pkgbase $_pkgbase-git)
 conflicts=($_pkgbase)
 groups=($_target-toolchain)
-makedepends=(git gcc meson $_target-gcc mos-api-headers-${_mos_arch})
+makedepends=(git gcc meson mos-api-headers-${_mos_arch})
 source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
 sha512sums=('SKIP')
 options+=(staticlibs)
@@ -28,14 +28,12 @@ prepare() {
     cd mlibc
     meson setup build \
         --prefix=$pkgdir/usr/$_target \
-        --cross-file=ci/mos.cross-file \
-        -Ddisable_linux_option=true \
-        -Ddefault_library='both'
+        --cross-file=ci/mos-x86_64.cross-file \
+        -Dheaders_only=true
 }
 
 build() {
-    cd mlibc/build
-    ninja
+    true
 }
 
 package() {
