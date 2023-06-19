@@ -76,11 +76,11 @@ index 000000000000..1283390dabb6
 +/* Files that are linked before user code.
 +   The %s tells GCC to look for these files in the library directory. */
 +#undef STARTFILE_SPEC
-+#define STARTFILE_SPEC "crt0.o%s crti.o%s crtbegin.o%s"
++#define STARTFILE_SPEC "%{shared:;static:crt0.o%s;!no-pie:Scrt0.o%s;:crt0.o%s } crti.o%s %{shared|static-pie|!no-pie:crtbeginS.o%s;:crtbegin.o%s}"
 +
 +/* Files that are linked after user code. */
 +#undef ENDFILE_SPEC
-+#define ENDFILE_SPEC "crtend.o%s crtn.o%s"
++#define ENDFILE_SPEC "%{ static:crtend.o%s; shared|static-pie|!no-pie:crtendS.o%s; :crtend.o%s } crtn.o%s"
 +
 +/* Enable dynamic linking by default. */
 +#undef LINK_SPEC
@@ -175,11 +175,11 @@ index b9975de90235..a3ea1a05cf67 100644
  	tmake_file="$tmake_file pa/t-netbsd"
  	;;
 +i[34567]86-*-mos*)
-+	extra_parts="$extra_parts crti.o crtbegin.o crtend.o crtn.o"
++	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
 +	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-libgcc-pic"
 +	;;
 +x86_64-*-mos*)
-+	extra_parts="$extra_parts crti.o crtbegin.o crtend.o crtn.o"
++	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
 +	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-libgcc-pic"
 +	;;
  i[34567]86-*-darwin*)

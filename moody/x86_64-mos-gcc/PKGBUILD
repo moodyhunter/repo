@@ -4,7 +4,7 @@
 _target=x86_64-mos
 _sysroot=/usr/$_target
 
-pkgname=$_target-gcc-stage1
+pkgname=$_target-gcc-stage2
 pkgver=13.1.0
 pkgrel=2
 pkgdesc="GNU gcc for the $_target toolchain"
@@ -14,14 +14,14 @@ license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
 makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils $_target-mlibc-headers)
+depends=(xz libmpc $_target-binutils $_target-mlibc)
 options+=(!lto !debug staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
     "$_target-gcc.patch"
 )
 sha256sums=('61d684f0aa5e76ac6585ad8898a2427aade8979ed5e7f85492286c4dfc13ee86'
-    '38dd6eacb43b111ddda1b01695902eea36d6350badc09314a2952377fc865c1e')
+            'fa210dfa01b90aa52eb5af2651be6e8be56f5a808f34b86ee983b443f9b096e0')
 
 prepare() {
     # Patch gcc
@@ -45,7 +45,7 @@ build() {
         --target=$_target \
         --prefix="/usr" \
         --libdir="/usr/lib" \
-        --libexecdir="/usr/libexec" \
+        --libexecdir="/usr/lib" \
         --disable-werror \
         --disable-nls \
         --disable-build-format-warnings \
@@ -57,22 +57,24 @@ build() {
         --with-sysroot="${_sysroot}" \
         --with-native-system-header-dir="/include" \
         --with-build-sysroot="${_sysroot}" \
-        --disable-shared
+        --enable-shared
 
     # Build stage 1
-    make
+    make #gcc all-target-libgcc
 }
 
 package() {
     cd "$_target-$pkgname-$pkgver-build"
 
-    # https://github.com/archlinux/svntogit-community/blob/packages/aarch64-linux-gnu-gcc/trunk/PKGBUILD
-    make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
-
-    # # Install stage 1
+    # # Install stage 2
     # make install-gcc DESTDIR=$pkgdir
     # make install-target-libgcc DESTDIR=$pkgdir
+    # Remove conflicting files
+    # rm -rf $pkgdir/usr/share/info
+    # rm -rf $pkgdir/usr/share/man/man7
 
+    # https://github.com/archlinux/svntogit-community/blob/packages/aarch64-linux-gnu-gcc/trunk/PKGBUILD
+    make DESTDIR="$pkgdir" install-gcc install-target-{libgcc,libstdc++-v3,libgomp,libgfortran,libquadmath,libatomic}
     # strip target binaries
     find "$pkgdir"/usr/lib/gcc/$_target/ "$pkgdir"/usr/$_target/lib \
         -type f -and \( -name \*.a -or -name \*.o \) \
@@ -87,11 +89,4 @@ package() {
     rm -r "$pkgdir"/usr/share/man/man7
     rm -r "$pkgdir"/usr/share/info
     rm -r "$pkgdir"/usr/share/gcc-$pkgver
-
-    # make install-gcc DESTDIR=$pkgdir
-    # make install-target-libgcc DESTDIR=$pkgdir
-
-    # # Remove conflicting files
-    # rm -rf $pkgdir/usr/share/info
-    # rm -rf $pkgdir/usr/share/man/man7
 }
