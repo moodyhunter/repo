@@ -4,7 +4,7 @@
 _target=x86_64-mos
 _sysroot=/usr/$_target
 
-pkgname=$_target-gcc-stage2
+pkgname=$_target-gcc
 pkgver=13.1.0
 pkgrel=3
 pkgdesc="GNU gcc for the $_target toolchain"
