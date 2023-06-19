@@ -5,7 +5,7 @@ _mos_arch=x86_64
 _pkgbase=$_target-mlibc
 
 pkgname=$_pkgbase-git
-pkgver=3259.f01053eb
+pkgver=3257.f5a9fc71
 pkgrel=1
 pkgdesc="mlibc for the $_target toolchain - header-only"
 arch=('any')
@@ -14,7 +14,7 @@ license=('MIT')
 provides=($_pkgbase $_pkgbase-git)
 conflicts=($_pkgbase)
 groups=($_target-toolchain)
-makedepends=(git gcc meson mos-api-headers-${_mos_arch} $_target-gcc-stage1)
+makedepends=(git gcc meson mos-api-headers-${_mos_arch} $_target-gcc-stage2)
 source=("mlibc::git+https://github.com/moodyhunter/mlibc-mos.git")
 sha512sums=('SKIP')
 options+=(staticlibs)
