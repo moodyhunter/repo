@@ -1,6 +1,6 @@
 # Maintainer: Mark Wagie <mark dot wagie at tutanota dot com>
 pkgname=fluent-gtk-theme-git
-pkgver=2022.12.15.r29.gbfdeed3
+pkgver=2023.06.20.r0.ga4d6c8b
 pkgrel=1
 pkgdesc="Fluent design gtk theme for linux desktops"
 arch=('any')
