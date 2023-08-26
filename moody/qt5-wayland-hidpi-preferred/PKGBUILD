@@ -4,7 +4,7 @@
 _pkgname=qt5-wayland
 pkgname=${_pkgname}-hidpi-preferred
 _basever=5.15.8
-pkgver=5.15.10+kde+r52
+pkgver=5.15.10+kde+r57
 pkgrel=1
 _commit=61db28f8735290acf70c124eaaccc9e6553e1cda
 arch=('x86_64')
