@@ -5,16 +5,16 @@ _target=x86_64-mos
 _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
-pkgver=13.1.0
-pkgrel=4
+pkgver=13.2.0
+pkgrel=1
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
 license=('GPL')
 provides=($pkgname)
 groups=($_target-toolchain)
-makedepends=(gmp mpfr gcc)
-depends=(xz libmpc $_target-binutils $_target-mlibc)
+makedepends=(gmp mpfr gcc $_target-mlibc)
+depends=(xz libmpc $_target-binutils)
 options+=(!lto !debug staticlibs)
 source=(
     "http://ftpmirror.gnu.org/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz"
