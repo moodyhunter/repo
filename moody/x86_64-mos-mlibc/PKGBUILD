@@ -28,6 +28,7 @@ prepare() {
     cd mlibc
     meson setup build \
         --prefix=$pkgdir/usr/$_target \
+        -Ddefault_library=both \
         --cross-file=ci/mos-x86_64.cross-file
 }
 

@@ -24,6 +24,11 @@ pkgver() {
     printf "%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+prepare() {
+    cd mos
+    git submodule update --init --recursive
+}
+
 build() {
     cd mos
     mkdir -p build && cd build
