@@ -5,7 +5,7 @@
 _pkgname=meson
 pkgname=meson-stdio-tmpfix
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="High productivity build system"
 url="https://mesonbuild.com/"
 arch=(any)
