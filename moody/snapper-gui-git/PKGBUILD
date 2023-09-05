@@ -10,7 +10,7 @@ url="https://github.com/ricardomv/snapper-gui"
 license=('GPL2')
 depends=('python3' 'gtk3' 'python-dbus' 'python-gobject' 'python-setuptools' 'gtksourceview3' 'snapper')
 optdepends=('gksu: Access snapper-gui from application menu under GTK-base DE'
-            'kdesu: Access snapper-gui from application menu under KDE')
+    'kdesu: Access snapper-gui from application menu under KDE')
 makedepends=('git')
 provides=('snapper-gui')
 conflicts=('snapper-gui')
@@ -19,11 +19,11 @@ source=("${pkgname}::git+https://github.com/ricardomv/snapper-gui.git")
 sha256sums=('SKIP')
 
 pkgver() {
-  cd "$pkgname"
-  git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+    cd "$pkgname"
+    git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 package() {
-  cd "$pkgname"
-  python setup.py install --root="${pkgdir}/" --optimize=1
+    cd "$pkgname"
+    python setup.py install --root="${pkgdir}/" --optimize=1
 }
