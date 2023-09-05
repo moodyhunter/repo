@@ -32,16 +32,9 @@ prepare() {
 }
 
 package() {
-  cd "$srcdir/${pkgname%-git}"
-  install -d "$pkgdir/usr/share/themes"
-  ./install.sh -t all -d "$pkgdir/usr/share/themes"
+	cd "Fluent-gtk-theme-${pkgver//./-}"
 
-  # Round version
-  ./install.sh -t all --tweaks round float -d "$pkgdir/usr/share/themes"
-
-  # Wallpapers
-  cd "$srcdir/wallpaper"
-  install -d "$pkgdir"/usr/share/{backgrounds,gnome-background-properties}
-  ./install-gnome-backgrounds.sh
-  ./install-wallpapers.sh
+	install -m755 -d "${pkgdir}/usr/share/themes"
+	./install.sh -i simple -t all -d "${pkgdir}/usr/share/themes"
+	./install.sh -i simple -t all --tweaks round float -d "${pkgdir}/usr/share/themes"
 }
