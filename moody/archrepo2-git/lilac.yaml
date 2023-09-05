@@ -1,9 +1,9 @@
 maintainers:
   - github: moodyhunter
 
-build_prefix: moody-x86_64
-pre_build_script: aur_pre_build(maintainers='malacology')
+pre_build_script: aur_pre_build(maintainers=['malacology','lilydjwg'])
 
+build_prefix: moody-x86_64
 post_build: aur_post_build
 
 update_on:
