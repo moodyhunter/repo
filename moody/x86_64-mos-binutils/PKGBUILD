@@ -49,7 +49,8 @@ build() {
         --with-gnu-as \
         --with-gnu-ld \
         --host=${CHOST} \
-        --build=${CHOST}
+        --build=${CHOST} \
+        --enable-new-dtags
 
     make
 }
