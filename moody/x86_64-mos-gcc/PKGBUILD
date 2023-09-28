@@ -6,7 +6,7 @@ _sysroot=/usr/$_target
 
 pkgname=$_target-gcc
 pkgver=13.2.0
-pkgrel=3
+pkgrel=4
 pkgdesc="GNU gcc for the $_target toolchain"
 arch=('x86_64')
 url="https://www.gnu.org/software/gcc"
