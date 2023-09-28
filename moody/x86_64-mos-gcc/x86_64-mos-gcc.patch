@@ -42,15 +42,17 @@ index 671c7e3b018c..d2f0974a4051 100644
  *-*-darwin*)
    tmake_file="t-darwin "
    tm_file="${tm_file} darwin.h"
-@@ -1836,6 +1843,12 @@ hppa*64*-*-hpux11*)
+@@ -1836,6 +1845,14 @@ hppa*64*-*-hpux11*)
  		;;
  	esac
  	;;
 +i[34567]86-*-mos*)
 +    tm_file="${tm_file} i386/unix.h i386/att.h elfos.h glibc-stdint.h i386/i386elf.h mos.h"
++    tmake_file="${tmake_file} t-slibgcc"
 +    ;;
 +x86_64-*-mos*)
 +    tm_file="${tm_file} i386/unix.h i386/att.h elfos.h glibc-stdint.h i386/i386elf.h i386/x86-64.h mos.h"
++    tmake_file="${tmake_file} t-slibgcc"
 +    ;;
  i[34567]86-*-darwin1[89]* | i[34567]86-*-darwin2*)
  	echo "Error: 32bit target is not supported after Darwin17" 1>&2
@@ -176,11 +178,11 @@ index b9975de90235..a3ea1a05cf67 100644
  	;;
 +i[34567]86-*-mos*)
 +	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
-+	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-libgcc-pic"
++	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-slibgcc t-slibgcc-gld t-slibgcc-elf-ver t-libgcc-pic"
 +	;;
 +x86_64-*-mos*)
 +	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
-+	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-libgcc-pic"
++	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-slibgcc t-slibgcc-gld t-slibgcc-elf-ver t-libgcc-pic"
 +	;;
  i[34567]86-*-darwin*)
  	tmake_file="$tmake_file i386/t-crtpc t-crtfm i386/t-msabi"
