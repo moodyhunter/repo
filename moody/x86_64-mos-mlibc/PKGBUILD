@@ -5,7 +5,7 @@ _mos_arch=x86_64
 _pkgbase=$_target-mlibc
 
 pkgname=$_pkgbase-git
-pkgver=3389.0acc25e1
+pkgver=3408.ce579436
 pkgrel=1
 pkgdesc="mlibc for the $_target toolchain"
 arch=('any')
