@@ -12,7 +12,7 @@ pkgdesc="Intel P-state and CPUFreq Manager Widget - git 'dev' branch"
 url="https://github.com/frankenfruity/$_applet_name/tree/dev"
 arch=('x86_64')
 license=('GPL2')
-depends=('plasma-framework'
+depends=('plasma-framework5'
          'qt5-graphicaleffects')
 makedepends=('git' 'gcc' 'cmake' 'extra-cmake-modules'
              'ki18n' 'kcoreaddons'
