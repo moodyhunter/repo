@@ -177,11 +177,11 @@ index b9975de90235..a3ea1a05cf67 100644
  	tmake_file="$tmake_file pa/t-netbsd"
  	;;
 +i[34567]86-*-mos*)
-+	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
++	extra_parts="$extra_parts crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o"
 +	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-slibgcc t-slibgcc-gld t-slibgcc-elf-ver t-libgcc-pic"
 +	;;
 +x86_64-*-mos*)
-+	extra_parts="$extra_parts crti.o crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtn.o"
++	extra_parts="$extra_parts crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o"
 +	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-slibgcc t-slibgcc-gld t-slibgcc-elf-ver t-libgcc-pic"
 +	;;
  i[34567]86-*-darwin*)
