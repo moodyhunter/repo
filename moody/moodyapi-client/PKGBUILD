@@ -1,7 +1,7 @@
 # Maintainer: Moody Liu <mooodyhunter@outlook.com>
 
 pkgname=moodyapi-client-git
-pkgver=r1208.dd4460e
+pkgver=r1209.fe0a856
 pkgrel=1
 pkgdesc="MoodyAPI CLI Client"
 arch=('x86_64')
