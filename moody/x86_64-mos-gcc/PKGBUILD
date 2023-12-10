@@ -57,7 +57,8 @@ build() {
         --with-sysroot="${_sysroot}" \
         --with-native-system-header-dir="/include" \
         --with-build-sysroot="${_sysroot}" \
-        --enable-shared
+        --enable-shared \
+        --enable-threads=posix
 
     # Build stage 1
     make #gcc all-target-libgcc
