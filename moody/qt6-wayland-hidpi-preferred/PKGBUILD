@@ -2,24 +2,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
+pkgname=qt6-wayland-hidpi
 _pkgname=qt6-wayland
-_qtver=6.6.0
-pkgname=${_pkgname}-hidpi-preferred
-pkgver=6.6.1
+_qtver=6.7.0-beta1
+pkgver=${_qtver/-/}
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL3 LGPL3 FDL custom)
-pkgdesc='Provides APIs for Wayland - HiDPI preferred patch'
-depends=(qt6-declarative libxcomposite)
-makedepends=(cmake ninja)
+pkgdesc='Provides APIs for Wayland'
+depends=(gcc-libs
+         glibc
+         libglvnd
+         libxkbcommon
+         qt6-base
+         qt6-declarative
+         wayland)
+makedepends=(cmake
+             ninja)
 provides=(qt6-wayland)
 conflicts=(qt6-wayland)
-options=(debug)
 _pkgfn=${_pkgname/6-/}-everywhere-src-$_qtver
-source=(https://download.qt.io/official_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
-    hidpi.patch)
-sha256sums=('30c3d82d85d050c83370710a26d12c802199c51eba5c2726e9d6243edd03b7e8'
+source=(https://download.qt.io/development_releases/qt/${pkgver%.*}/$_qtver/submodules/$_pkgfn.tar.xz
+        hidpi.patch)
+sha256sums=('41dd8921f962eeff7e941af05dadea52a8fb6f37b458d3d2aacf6c1293687f4d'
             '731c41c4b72f019d967909670529f20fb4f00883205a922b42cada920ec3a509')
 
 prepare() {
@@ -28,14 +34,14 @@ prepare() {
 }
 
 build() {
-    cmake -B build -S $_pkgfn -G Ninja \
-        -DCMAKE_MESSAGE_LOG_LEVEL=STATUS
-    cmake --build build
+  cmake -B build -S $_pkgfn -G Ninja \
+    -DCMAKE_MESSAGE_LOG_LEVEL=STATUS
+  cmake --build build
 }
 
 package() {
-    DESTDIR="$pkgdir" cmake --install build
+  DESTDIR="$pkgdir" cmake --install build
 
-    install -d "$pkgdir"/usr/share/licenses
-    ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$_pkgname
+  install -d "$pkgdir"/usr/share/licenses
+  ln -s /usr/share/licenses/qt6-base "$pkgdir"/usr/share/licenses/$_pkgname
 }
