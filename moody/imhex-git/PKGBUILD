@@ -35,7 +35,7 @@ build() {
         -Wno-dev \
         -D CMAKE_BUILD_TYPE=Release \
         -D CMAKE_INSTALL_PREFIX=/usr \
-        -D USE_SYSTEM_LLVM=ON \
+        -D USE_SYSTEM_LLVM=OFF \
         -D USE_SYSTEM_YARA=ON \
         -D USE_SYSTEM_FMT=ON \
         -D USE_SYSTEM_CURL=ON \
