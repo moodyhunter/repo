@@ -5,7 +5,7 @@
 pkgname=qt6-wayland-hidpi
 _pkgname=qt6-wayland
 _qtver=6.7.0-beta1
-pkgver=6.7.0beta1
+pkgver=6.7.0beta2
 pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
