@@ -3,7 +3,7 @@
 pkgname=python-pypdf3
 _name=PyPDF3
 pkgver=1.0.6
-pkgrel=4
+pkgrel=5
 pkgdesc="Pure-Python PDF library for splitting, merging, cropping, and transforming PDF pages."
 arch=('any')
 url="https://github.com/sfneal/PyPDF3"
