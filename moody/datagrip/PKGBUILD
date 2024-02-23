@@ -3,7 +3,7 @@
 pkgbase=datagrip
 pkgname=(datagrip datagrip-jre)
 pkgver=2023.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Smart SQL Editor and Advanced Database Client Packed Together for Optimum Productivity'
 arch=('any')
 url='https://www.jetbrains.com/datagrip/'
