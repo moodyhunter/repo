@@ -2,7 +2,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 _pkgname=qt5-wayland
-pkgname=${_pkgname}-hidpi-preferred
+pkgname=${_pkgname}-hidpi
 _basever=5.15.8
 pkgver=5.15.12+kde+r61
 pkgrel=2
