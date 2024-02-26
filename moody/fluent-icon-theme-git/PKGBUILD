@@ -1,7 +1,7 @@
 # Maintainer: Mark Wagie <mark dot wagie at proton dot me>
 pkgname=('fluent-icon-theme-git' 'fluent-round-icon-theme-git' 'fluent-cursor-theme-git')
 pkgbase=fluent-icon-theme-git
-pkgver=2024.02.25.r0.g011e806
+pkgver=2024.02.25.r1.g164f994
 pkgrel=1
 pkgdesc="A Fluent design icon theme"
 arch=('any')
