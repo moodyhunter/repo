@@ -2,7 +2,7 @@
 
 pkgname=devtools-moody
 epoch=1
-pkgver=2
+pkgver=3
 pkgrel=1
 pkgdesc="Development tools for the moody's toolchain"
 arch=('x86_64')
