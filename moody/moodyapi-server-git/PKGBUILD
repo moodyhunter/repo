@@ -1,12 +1,12 @@
 _pkgname=moodyapi-server
 pkgname=$_pkgname-git
-pkgver=r1317.55eb346
+pkgver=r1318.4e49a86
 pkgrel=1
 pkgdesc="MoodyAPI Server"
 arch=('x86_64')
 url="https://github.com/moodyhunter/MoodyAPI"
 license=('AGPL3')
-makedepends=('git' 'go' 'protobuf' 'protoc-gen-go')
+makedepends=('git' 'go' 'protobuf' )
 provides=("$_pkgname")
 conflicts=("$_pkgname")
 source=("$pkgname::git+$url.git")
@@ -24,6 +24,7 @@ build() {
     export CGO_CXXFLAGS="${CXXFLAGS}"
     export CGO_LDFLAGS="${LDFLAGS}"
     export GOFLAGS="-buildmode=pie -trimpath"
+    export PATH="$PATH:$HOME/go/bin"
     go generate
     go build -ldflags='-s -w -linkmode=external'
 }
