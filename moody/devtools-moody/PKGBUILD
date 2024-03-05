@@ -22,6 +22,6 @@ package() {
     cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman.conf.d/moody.conf
 [moody]
 Server = http://192.168.200.201:8000/$arch
-SigLevel = Optional
+SigLevel = Optional TrustAll
 EOF
 }
