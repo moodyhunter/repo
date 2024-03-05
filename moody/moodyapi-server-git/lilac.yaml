@@ -8,6 +8,9 @@ build_prefix: moody-x86_64
 pre_build: vcs_update
 post_build: git_pkgbuild_commit
 
+repo_depends:
+  - protoc-gen-go
+
 update_on:
   - source: vcs
     vcs: git+https://github.com/moodyhunter/MoodyAPI.git
