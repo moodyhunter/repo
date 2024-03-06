@@ -1,7 +1,7 @@
 _pkgname=moodyapi-server
 pkgname=$_pkgname-git
-pkgver=r1318.4e49a86
-pkgrel=2
+pkgver=r1319.eb8eb77
+pkgrel=1
 pkgdesc="MoodyAPI Server"
 arch=('x86_64')
 url="https://github.com/moodyhunter/MoodyAPI"
