@@ -20,8 +20,6 @@ depends=(gcc-libs
   qt6-base
   qt6-declarative)
 makedepends=(git extra-cmake-modules)
-conflicts=(plasma5-applets-window-buttons plasma-applets-window-buttons)
-replaces=(plasma5-applets-window-buttons plasma-applets-window-buttons)
 source=(git+https://github.com/moodyhunter/applet-window-buttons6.git)
 sha256sums=('SKIP')
 
