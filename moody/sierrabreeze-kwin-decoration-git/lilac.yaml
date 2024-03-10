@@ -1,12 +1,6 @@
 maintainers:
   - github: moodyhunter
 
-pre_build_script: aur_pre_build(maintainers='omni')
-
-post_build: aur_post_build
-
 update_on:
-  - source: aur
-    aur: sierrabreeze-kwin-decoration-git
-    strip_release: true
-
+  - source: vcs
+    vcs: git+https://github.com/moodyhunter/SierraBreeze6.git
