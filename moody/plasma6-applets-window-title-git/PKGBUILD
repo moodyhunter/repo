@@ -1,0 +1,25 @@
+pkgname=plasma6-applets-window-title-git
+pkgver=r125.504e6c2
+pkgrel=1
+pkgdesc="Plasma 6 applet that shows the application title and icon for active window"
+arch=(any)
+url="https://github.com/moodyhunter/applet-window-title6"
+license=(GPL)
+depends=('plasma-workspace')
+conflicts=(plasma5-applets-window-title)
+replaces=(plasma5-applets-window-title)
+makedepends=(git)
+source=(git+https://github.com/moodyhunter/applet-window-title6.git)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "applet-window-title6"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+package() {
+  _pkgdir="$pkgdir/usr/share/plasma/plasmoids/org.kde.windowtitle"
+  mkdir -p "$_pkgdir"
+  cp -r applet-window-title6/* "$_pkgdir"
+  rm "$_pkgdir/README.md"
+}
