@@ -1,2 +1,0 @@
-# Give write to HOME permision for runner
-z /var/lib/gitea-runner 0775 root gitea-runner
