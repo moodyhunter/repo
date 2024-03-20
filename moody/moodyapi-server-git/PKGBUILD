@@ -1,6 +1,6 @@
 _pkgname=moodyapi-server
 pkgname=$_pkgname-git
-pkgver=r1327.c7df745
+pkgver=r1328.4633b27
 pkgrel=1
 pkgdesc="MoodyAPI Server"
 arch=('x86_64')
