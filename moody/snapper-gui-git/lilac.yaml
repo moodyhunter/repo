@@ -2,7 +2,7 @@ maintainers:
   - github: moodyhunter
 
 build_prefix: moody-x86_64
-pre_build_script: aur_pre_build(maintainers='Saren')
+pre_build_script: aur_pre_build(maintainers='vitor_hideyoshi')
 
 post_build: aur_post_build
 
