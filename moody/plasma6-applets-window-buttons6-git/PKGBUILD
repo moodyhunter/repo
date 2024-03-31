@@ -1,5 +1,5 @@
 pkgname=plasma6-applets-window-buttons6-git
-pkgver=r193.c787f66
+pkgver=r197.a7b95da
 pkgrel=1
 url='https://github.com/moodyhunter/applet-window-buttons6'
 arch=(x86_64)
