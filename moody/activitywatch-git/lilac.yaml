@@ -1,0 +1,13 @@
+maintainers:
+  - github: moodyhunter
+
+pre_build_script: aur_pre_build(maintainers='Maetveis')
+
+build_prefix: moody-x86_64
+post_build: aur_post_build
+
+update_on:
+  - source: aur
+    aur: activitywatch-git
+    strip_release: true
+
