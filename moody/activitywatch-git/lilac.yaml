@@ -6,6 +6,12 @@ pre_build_script: aur_pre_build(maintainers='Maetveis')
 build_prefix: moody-x86_64
 post_build: aur_post_build
 
+repo_depends:
+  - python-flask-restx
+  - python-persist-queue
+  - python-timeslot
+  - python-pynput
+
 update_on:
   - source: aur
     aur: activitywatch-git
