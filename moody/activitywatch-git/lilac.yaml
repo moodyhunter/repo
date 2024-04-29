@@ -1,9 +1,9 @@
 maintainers:
   - github: moodyhunter
 
-pre_build_script: aur_pre_build(maintainers='Maetveis')
-
 build_prefix: moody-x86_64
+
+pre_build_script: update_pkgver_and_pkgrel(_G.newver)
 post_build: aur_post_build
 
 repo_depends:

@@ -3,8 +3,8 @@
 
 _name='activitywatch'
 pkgname="$_name-git"
-pkgver=0.12.3b13.r0.g18b01d9
-pkgrel=3
+pkgver=0.12.3b16.r3.g5b75e58
+pkgrel=1
 pkgdesc='Log what you do on your computer. Simple, extensible, no third parties.'
 arch=('x86_64')
 url="https://github.com/ActivityWatch/$_name"
@@ -92,12 +92,12 @@ prepare() {
 }
 
 _find_submodules() {
-    cd "$srcdir/$_name" || exit 1
+  cd "$srcdir/$_name" || exit 1
 
-    IFS=' ' read -r -a submodules \
-      < <(sed --silent '/^SUBMODULES/{s/^SUBMODULES[[:blank:]]*:=[[:blank:]]*//;p}' Makefile)
+  IFS=' ' read -r -a submodules \
+    < <(sed --silent '/^SUBMODULES/{s/^SUBMODULES[[:blank:]]*:=[[:blank:]]*//;p}' Makefile)
 
-    IFS=' ' read -r -a python_submodules <<<"${submodules[@]/$_aw_server_rust_dir}"
+  IFS=' ' read -r -a python_submodules <<<"${submodules[@]/$_aw_server_rust_dir/}"
 }
 
 _get_rustflags() {
@@ -106,7 +106,7 @@ _get_rustflags() {
   IFS=$'\x1f' read -r -a _cargo_encoded_rustflags <<<"$CARGO_ENCODED_RUSTFLAGS"
   _cargo_encoded_rustflags+=("${_extra_rustflags[@]}")
   (
-    IFS=$'\x1f';
+    IFS=$'\x1f'
     printf '%s' "${_cargo_encoded_rustflags[*]}"
   )
 }
@@ -116,9 +116,9 @@ build() {
   make --directory="$srcdir/$_aw_webui" build
 
   # References $srcdir in the output
-  python -                                          \
+  python - \
     "$srcdir/$_aw_webui/dist/service-worker.js.map" \
-    "$srcdir"                                       \
+    "$srcdir" \
     "${DBGSRCDIR:-/usr/src/debug}/$pkgbase" <<'PYTHON'
 import sys
 with open(sys.argv[1], 'r+') as f:
@@ -139,8 +139,8 @@ PYTHON
 
   # Build python submodules
   for submodule in "${python_submodules[@]}"; do
-      cd "$srcdir/$_name/$submodule" || exit 1
-      poetry build --format=wheel
+    cd "$srcdir/$_name/$submodule" || exit 1
+    poetry build --format=wheel
   done
 
   # Build aw-server-rust
@@ -156,22 +156,22 @@ package() {
 
   # install python packages
   find "${python_submodules[@]}" \
-    -maxdepth 2                  \
-    -type f                      \
-    -path '*/dist/*.whl'         \
+    -maxdepth 2 \
+    -type f \
+    -path '*/dist/*.whl' \
     -exec python -m installer --destdir="$pkgdir" '{}' ';'
 
   # install aw-server-rust
-  install -D --mode=0755 --no-target-directory                   \
+  install -D --mode=0755 --no-target-directory \
     "$srcdir/$_aw_server_rust/target/$_triple/release/aw-server" \
     "$pkgdir/usr/bin/aw-server-rust"
 
   # install other binaries distributed from aw-server-rust
   find "$srcdir/$_aw_server_rust/target/$_triple/release" \
-    -maxdepth 1                                           \
-    -type f                                               \
-    -executable                                           \
-    ! -name "aw-server"                                   \
+    -maxdepth 1 \
+    -type f \
+    -executable \
+    ! -name "aw-server" \
     -exec install -D --mode=0755 --target-directory="$pkgdir/usr/bin" '{}' +
 
   # Install .desktop
