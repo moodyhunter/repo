@@ -10,4 +10,9 @@ update_on:
   - source: aur
     aur: qv2ray-dev-git
     strip_release: true
-
+  - source: alpm
+    alpm: protobuf
+    strip_release: true
+  - source: alpm
+    alpm: grpc
+    strip_release: true
