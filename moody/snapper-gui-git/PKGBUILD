@@ -4,7 +4,7 @@
 
 pkgname=snapper-gui-git
 pkgver=0.1+8.r132.20220626.1915750
-pkgrel=7
+pkgrel=8
 pkgdesc="Gui for snapper, a tool of managing snapshots of Btrfs subvolumes and LVM volumes"
 arch=(any)
 url="https://github.com/ricardomv/snapper-gui"
