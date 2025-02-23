@@ -1,6 +1,6 @@
 pkgname=plasma6-applets-window-buttons6-git
 pkgver=r202.3cb84ca
-pkgrel=1
+pkgrel=2
 url='https://github.com/moodyhunter/applet-window-buttons6'
 arch=(x86_64)
 pkgdesc='Plasma applet in order to show window buttons in your panels'
