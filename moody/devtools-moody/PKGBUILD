@@ -21,7 +21,7 @@ package() {
 
     cat <<EOF >>"$pkgdir"/usr/share/devtools/pacman.conf.d/moody.conf
 [moody]
-Server = https://archrepo.mooody.me/$arch
+Server = https://repo.mooody.me/\$repo/\$arch
 SigLevel = Never
 EOF
 }
