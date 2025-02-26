@@ -1,6 +1,6 @@
 pkgname=('fluent-icon-theme-git' 'fluent-cursor-theme-git')
 pkgbase=fluent-icon-theme-git
-pkgver=2025.02.10.r1.g7d20e2d2
+pkgver=2025.02.26.r0.ge18d747d
 pkgrel=1
 pkgdesc="A Fluent design icon theme"
 arch=('any')
