@@ -45,7 +45,8 @@ build() {
         -DQV2RAY_DEFAULT_VCORE_PATH="/usr/bin/v2ray" \
         -DQV2RAY_DISABLE_AUTO_UPDATE=on \
         -DCMAKE_BUILD_TYPE=Release \
-        -GNinja
+        -GNinja \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     ninja
 }
 
