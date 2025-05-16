@@ -11,7 +11,7 @@ license=('GPL3')
 depends=('hicolor-icon-theme' 'qt5-base>5.11.0' 'grpc>=1.27.0' 'qt5-svg')
 optdepends=('v2ray: use system v2ray core.')
 makedepends=('git' 'make' 'qt5-tools' 'which' 'gcc' 'qt5-declarative'
-             'cmake' 'ninja')
+    'cmake' 'ninja')
 provides=('qv2ray')
 conflicts=('qv2ray')
 
@@ -54,4 +54,3 @@ package() {
     cd "${srcdir}/Qv2ray"
     ninja -C "build" install
 }
-

@@ -1,8 +1,6 @@
 maintainers:
   - github: moodyhunter
 
-pre_build_script: aur_pre_build(maintainers='axionl')
-
 build_prefix: moody-x86_64
 post_build: aur_post_build
 
