@@ -4,7 +4,7 @@
 _name='activitywatch'
 pkgname="$_name-git"
 pkgver=0.13.2.r7.g6c26ebd
-pkgrel=3
+pkgrel=4
 pkgdesc='Log what you do on your computer. Simple, extensible, no third parties.'
 arch=('x86_64')
 url="https://github.com/ActivityWatch/$_name"
