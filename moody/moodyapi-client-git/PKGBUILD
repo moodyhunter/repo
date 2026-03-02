@@ -2,7 +2,7 @@
 
 pkgname=moodyapi-client-git
 pkgver=r1511.aab4311
-pkgrel=6
+pkgrel=7
 pkgdesc="MoodyAPI CLI Client"
 arch=('x86_64')
 url="https://github.com/moodyhunter/MoodyAPI"
