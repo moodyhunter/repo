@@ -1,7 +1,7 @@
 # Maintainer: Mark Wagie <mark dot wagie at proton dot me>
 pkgname=fluent-gtk-theme-git
 pkgver=2025.04.17.r44.g7a49a46
-pkgrel=1
+pkgrel=2
 pkgdesc="Fluent design gtk theme for linux desktops"
 arch=('any')
 url="https://github.com/vinceliuice/Fluent-gtk-theme"
